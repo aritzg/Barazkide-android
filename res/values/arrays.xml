@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="garden_spinner_menu">
+        <item>All</item>
+        <item>Followed</item>
+        <item>Mine</item>
+    </string-array>
+
+</resources>
