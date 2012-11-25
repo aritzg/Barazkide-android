@@ -1,49 +1,56 @@
 package net.sareweb.android.barazkide.fragment;
 
+import java.util.List;
+
 import net.sareweb.android.barazkide.Constants;
 import net.sareweb.android.barazkide.R;
-import android.app.ListFragment;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import net.sareweb.android.barazkide.adapter.GardenAdapter;
+import net.sareweb.android.barazkide.model.Garden;
+import net.sareweb.android.barazkide.rest.GardenRESTClient;
+import android.app.Fragment;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class GardensFragment extends ListFragment {
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.UiThread;
+
+@EFragment(R.layout.gardens_fragment)
+public class GardensFragment extends Fragment {
 	
 	private static String TAG = "GardensFragment";
+	
 	int gardenListType = 0;
 
-	public GardensFragment() {
-		// new GardensFragment(0);
-	}
-	
-	public GardensFragment(int gardenListType) {
-		Log.d(TAG, "GardensFragment Constructor");
-		this.gardenListType = gardenListType;
-	}
-
 	public void setGardenContent(int gardenListType){
-		TextView gerdenListTypeTextView = (TextView) getView().findViewById(
+		TextView gardenListTypeTextView = (TextView) getView().findViewById(
 				R.id.gardenListType);
 		switch (gardenListType) {
 		case Constants.GARDEN_LIST_ALL:
-			gerdenListTypeTextView.setText("All gardens");
+			gardenListTypeTextView.setText("All gardens");
+			getGardens(0);
 			break;
 		case Constants.GARDEN_LIST_FOLLWED:
-			gerdenListTypeTextView.setText("Followed gardens");
+			gardenListTypeTextView.setText("Followed gardens");
+			getGardens(11021);
 			break;
 		case Constants.GARDEN_LIST_MINE:
-			gerdenListTypeTextView.setText("My gardens");
+			gardenListTypeTextView.setText("My gardens");
+			getGardens(10196);
 			break;
 		}
 	}
 	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.gardens_fragment, container, false); 
+	@Background
+	public void getGardens(long ownerUserId){
+		GardenRESTClient gardenRestClient = new GardenRESTClient("test", "test1");
+		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, System.currentTimeMillis(), false, 0));
+	}
+	
+	@UiThread
+	public void getGardensResult(List<Garden> gardens){
+		ListView gardensListView = (ListView) getActivity().findViewById(R.id.garden_list_view);
+		gardensListView.setAdapter(new GardenAdapter(getActivity(), gardens));
 	}
 
 

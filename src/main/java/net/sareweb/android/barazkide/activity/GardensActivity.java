@@ -2,6 +2,8 @@ package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.fragment.GardensFragment;
+import net.sareweb.android.barazkide.fragment.GardensFragment_;
+import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.Activity;
@@ -12,16 +14,25 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.FragmentById;
+
+@EActivity(R.layout.gardens_activity)
 public class GardensActivity extends Activity implements OnNavigationListener {
 
 	private static String TAG = "GardensActivity";
-
+	
+    GardenRESTClient gardenRESTClient;
+    @FragmentById(R.id.gardensFragmentContainer)
+    GardensFragment gardensFragment;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		setContentView(R.layout.gardens_activity);
-
+		gardenRESTClient = new GardenRESTClient("test", "test1");
+		
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.garden_spinner_menu,
 				android.R.layout.simple_spinner_dropdown_item);
@@ -29,7 +40,6 @@ public class GardensActivity extends Activity implements OnNavigationListener {
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
-
 	}
 
 	@Override
@@ -42,11 +52,9 @@ public class GardensActivity extends Activity implements OnNavigationListener {
 		Log.d(TAG, "Loading gardens");
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		GardensFragment gardensFragment = (GardensFragment) fragmentManager.findFragmentById(R.id.gardensFragmentContainer);
-		gardensFragment.setGardenContent(gardenListType);
-		fragmentTransaction.commit();
+		gardensFragment. setGardenContent(gardenListType);
+		fragmentTransaction.commitAllowingStateLoss();
 		
 	}
-
-
+	
 }

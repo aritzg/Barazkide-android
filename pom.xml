@@ -39,8 +39,15 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.1</version>
+			<version>2.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sareweb.lifedroid</groupId>
+			<artifactId>lifedroid</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+            
     </dependencies>
 
     <build>
