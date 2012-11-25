@@ -1,6 +1,7 @@
 package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
+import net.sareweb.android.barazkide.fragment.GardenDetailFragment;
 import net.sareweb.android.barazkide.fragment.GardensFragment;
 import net.sareweb.android.barazkide.fragment.GardensFragment_;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
@@ -26,6 +27,8 @@ public class GardensActivity extends Activity implements OnNavigationListener {
     GardenRESTClient gardenRESTClient;
     @FragmentById(R.id.gardensFragmentContainer)
     GardensFragment gardensFragment;
+    @FragmentById(R.id.gardenDetailContainer)
+    GardenDetailFragment gardenDetailFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class GardensActivity extends Activity implements OnNavigationListener {
 		Log.d(TAG, "Loading gardens");
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		gardensFragment. setGardenContent(gardenListType);
+		gardensFragment.setGardenContent(gardenListType);
 		fragmentTransaction.commitAllowingStateLoss();
 		
 	}

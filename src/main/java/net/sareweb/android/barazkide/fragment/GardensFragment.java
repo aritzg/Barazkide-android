@@ -8,15 +8,21 @@ import net.sareweb.android.barazkide.adapter.GardenAdapter;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.gardens_fragment)
-public class GardensFragment extends Fragment {
+public class GardensFragment extends Fragment implements OnItemClickListener{
 	
 	private static String TAG = "GardensFragment";
 	
@@ -51,6 +57,18 @@ public class GardensFragment extends Fragment {
 	public void getGardensResult(List<Garden> gardens){
 		ListView gardensListView = (ListView) getActivity().findViewById(R.id.garden_list_view);
 		gardensListView.setAdapter(new GardenAdapter(getActivity(), gardens));
+		gardensListView.setOnItemClickListener(this);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Garden garden = (Garden) view.getTag();
+		FragmentManager fragmentManager = getActivity().getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailContainer);
+		gardenDetailFragment.setGardenContent(garden);
+		fragmentTransaction.commitAllowingStateLoss();
+		
 	}
 
 
