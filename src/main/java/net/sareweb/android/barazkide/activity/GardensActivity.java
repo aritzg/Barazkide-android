@@ -18,8 +18,11 @@ import android.widget.SpinnerAdapter;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentById;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 
 @EActivity(R.layout.gardens_activity)
+@OptionsMenu(R.menu.main_menu)
 public class GardensActivity extends Activity implements OnNavigationListener {
 
 	private static String TAG = "GardensActivity";
@@ -60,4 +63,8 @@ public class GardensActivity extends Activity implements OnNavigationListener {
 		
 	}
 	
+	@OptionsItem(R.id.menu_add)
+	void addSelected(){
+		EditGardenActivity_.intent(this).start();
+	}
 }

@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.gardens_fragment)
@@ -50,7 +49,7 @@ public class GardensFragment extends Fragment implements OnItemClickListener{
 	@Background
 	public void getGardens(long ownerUserId){
 		GardenRESTClient gardenRestClient = new GardenRESTClient("test", "test1");
-		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, System.currentTimeMillis(), false, 0));
+		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, 0, false, 0));
 	}
 	
 	@UiThread
