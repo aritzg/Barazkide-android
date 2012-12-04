@@ -12,6 +12,4 @@
         android:text="gardenDetail"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-
-
 </LinearLayout>

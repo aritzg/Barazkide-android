@@ -9,10 +9,10 @@
     <name>Barazkide-android</name>
 
     <properties>
-        <platform.version> 2.3.3
+        <platform.version> 4.0.1.2
             </platform.version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>com.google.android</groupId>
@@ -47,6 +47,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+		  <groupId>com.actionbarsherlock</groupId>
+		  <artifactId>actionbarsherlock</artifactId>
+		  <version>4.2.0</version>
+		  <type>apklib</type>
+		</dependency>
+				
             
     </dependencies>
 
@@ -62,9 +69,9 @@
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
                     <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
                     <sdk>
-                        <platform>10</platform>
+                        <platform>15</platform>
                     </sdk>
-                                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>

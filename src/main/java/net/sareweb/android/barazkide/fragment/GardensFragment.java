@@ -7,21 +7,22 @@ import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.adapter.GardenAdapter;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 
 @EFragment(R.layout.gardens_fragment)
-public class GardensFragment extends Fragment implements OnItemClickListener{
+public class GardensFragment extends SherlockFragment implements OnItemClickListener{
 	
 	private static String TAG = "GardensFragment";
 	
@@ -62,11 +63,16 @@ public class GardensFragment extends Fragment implements OnItemClickListener{
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Garden garden = (Garden) view.getTag();
-		FragmentManager fragmentManager = getActivity().getFragmentManager();
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailContainer);
-		gardenDetailFragment.setGardenContent(garden);
-		fragmentTransaction.commitAllowingStateLoss();
+		if(gardenDetailFragment!=null){
+			gardenDetailFragment.setGardenContent(garden);
+			fragmentTransaction.commitAllowingStateLoss();
+		}
+		else{
+			Toast.makeText(getActivity(), "Hey! , this is too small!", Toast.LENGTH_SHORT).show();
+		}
 		
 	}
 

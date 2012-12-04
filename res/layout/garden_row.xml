@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:src="@drawable/ic_menu_home" />
+        android:src="@drawable/icon" />
     
     <TextView
         android:id="@+id/txGardenName"

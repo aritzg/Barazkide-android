@@ -2,14 +2,14 @@ package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.OptionsItem;
@@ -19,19 +19,19 @@ import com.googlecode.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.garden_edit)
 @OptionsMenu(R.menu.edit_menu)
-public class EditGardenActivity extends Activity {
+public class EditGardenActivity extends SherlockFragmentActivity{
 	
 	private static String TAG = "EditGardenActivity";
 	
 	GardenRESTClient gardenRESTClient;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		gardenRESTClient = new GardenRESTClient("test", "test1");
 		
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 	
