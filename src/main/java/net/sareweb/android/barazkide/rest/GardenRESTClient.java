@@ -11,8 +11,8 @@ import net.sareweb.lifedroid.rest.generic.LDRESTClient;
 
 public class GardenRESTClient extends LDRESTClient<Garden> {
 
-	public GardenRESTClient(String emailAddress, String password) {
-		super(emailAddress, password);
+	public GardenRESTClient(BarazkideConnectionData connectionData) {
+		super(connectionData);
 	}
 	
 	public Garden addGarden(String name, String comment, double lat, double lng, long gardenImageId){

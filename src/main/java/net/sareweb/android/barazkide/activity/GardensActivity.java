@@ -3,7 +3,10 @@ package net.sareweb.android.barazkide.activity;
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.fragment.GardenDetailFragment;
 import net.sareweb.android.barazkide.fragment.GardensFragment;
+import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
+import net.sareweb.android.barazkide.util.BarazkidePrefs_;
+import net.sareweb.android.barazkide.util.ConnectionUtils;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +21,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.gardens_activity)
 @OptionsMenu(R.menu.main_menu)
@@ -30,12 +34,13 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
     GardensFragment gardensFragment;
     @FragmentById(R.id.gardenDetailContainer)
     GardenDetailFragment gardenDetailFragment;
+    @Pref BarazkidePrefs_ prefs;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		gardenRESTClient = new GardenRESTClient("test", "test1");
+		gardenRESTClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
 		
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.garden_spinner_menu,

@@ -2,11 +2,14 @@ package net.sareweb.android.barazkide.fragment;
 
 import java.util.List;
 
-import net.sareweb.android.barazkide.Constants;
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.adapter.GardenAdapter;
 import net.sareweb.android.barazkide.model.Garden;
+import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
+import net.sareweb.android.barazkide.util.BarazkidePrefs_;
+import net.sareweb.android.barazkide.util.ConnectionUtils;
+import net.sareweb.android.barazkide.util.Constants;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -20,11 +23,13 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 @EFragment(R.layout.gardens_fragment)
 public class GardensFragment extends SherlockFragment implements OnItemClickListener{
 	
 	private static String TAG = "GardensFragment";
+	@Pref BarazkidePrefs_ prefs; 
 	
 	int gardenListType = 0;
 
@@ -49,7 +54,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 	
 	@Background
 	public void getGardens(long ownerUserId){
-		GardenRESTClient gardenRestClient = new GardenRESTClient("test", "test1");
+		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
 		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, 0, false, 0));
 	}
 	

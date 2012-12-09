@@ -16,4 +16,9 @@
         android:icon="@android:drawable/ic_menu_help"
         android:showAsAction="ifRoom|withText"
         android:title="Help"/>
+    <item
+        android:id="@+id/menu_log_out"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:showAsAction="ifRoom|withText"
+        android:title="Log out"/>
 </menu>
