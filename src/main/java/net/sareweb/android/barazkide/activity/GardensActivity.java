@@ -6,7 +6,7 @@ import net.sareweb.android.barazkide.fragment.GardensFragment;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
-import net.sareweb.android.barazkide.util.ConnectionUtils;
+import net.sareweb.android.barazkide.util.PrefUtils;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -69,5 +69,12 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 	@OptionsItem(R.id.menu_add)
 	void addSelected(){
 		EditGardenActivity_.intent(this).start();
+	}
+	
+	@OptionsItem(R.id.menu_log_out)
+	void logOutSelected(){
+		PrefUtils.clearUserPrefs(prefs);
+		finish();
+		LogInActivity_.intent(this).start();
 	}
 }
