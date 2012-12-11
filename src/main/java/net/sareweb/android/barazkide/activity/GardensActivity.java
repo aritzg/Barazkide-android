@@ -30,9 +30,9 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 	private static String TAG = "GardensActivity";
 	
     GardenRESTClient gardenRESTClient;
-    @FragmentById(R.id.gardensFragmentContainer)
+    @FragmentById
     GardensFragment gardensFragment;
-    @FragmentById(R.id.gardenDetailContainer)
+    @FragmentById
     GardenDetailFragment gardenDetailFragment;
     @Pref BarazkidePrefs_ prefs;
 	
@@ -44,7 +44,7 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 		
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.garden_spinner_menu,
-				android.R.layout.simple_spinner_dropdown_item);
+				android.R.layout.simple_selectable_list_item);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);

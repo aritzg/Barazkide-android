@@ -11,4 +11,6 @@ public class Constants {
 	
 	public static String DEFAULT_USER="test";
 	public static String DEFAULT_PASS="test1";
+	
+	public static int DEFAULT_BLOCK_SIZE=20;
 }

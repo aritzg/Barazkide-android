@@ -48,9 +48,6 @@ public class GardenAdapter extends BaseAdapter{
 		}
 		TextView txGardenName = (TextView) convertView.findViewById(R.id.txGardenName);
 		
-		
-		
-		
 		String name=gardens.get(position).getName();
 		txGardenName.setText(name);
 		convertView.setTag(gardens.get(position));

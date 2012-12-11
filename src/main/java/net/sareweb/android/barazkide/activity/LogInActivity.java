@@ -33,11 +33,10 @@ public class LogInActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if(PrefUtils.isUserLogged(prefs)){
-			finish();
 			GardensActivity_.intent(this).start();
 		}
 	}
-
+	
 	@Click(R.id.btnSignIn)
 	void clickOnSignIn(){
 		if(ConnectionUtils.isOnline(this)){

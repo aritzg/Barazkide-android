@@ -6,7 +6,7 @@
     android:orientation="horizontal" >
 
     <fragment
-        android:id="@+id/gardensFragmentContainer"
+        android:id="@+id/gardensFragment"
         android:name="net.sareweb.android.barazkide.fragment.GardensFragment_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
