@@ -36,7 +36,7 @@ public class LogInActivity extends Activity {
 			GardensActivity_.intent(this).start();
 		}
 	}
-
+	
 	@Click(R.id.btnSignIn)
 	void clickOnSignIn(){
 		if(ConnectionUtils.isOnline(this)){

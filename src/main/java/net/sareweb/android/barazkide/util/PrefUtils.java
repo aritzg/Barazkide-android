@@ -6,5 +6,11 @@ public class PrefUtils {
 		if(prefs.user().getOr("").equals(""))return false;
 		return true;
 	}
+	
+	public static void clearUserPrefs(BarazkidePrefs_ prefs){
+		prefs.user().put("");
+		prefs.userId().put(0);
+		prefs.pass().put("");
+	}
 
 }

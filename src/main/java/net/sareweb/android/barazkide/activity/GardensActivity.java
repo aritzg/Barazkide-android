@@ -6,7 +6,7 @@ import net.sareweb.android.barazkide.fragment.GardensFragment;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
-import net.sareweb.android.barazkide.util.ConnectionUtils;
+import net.sareweb.android.barazkide.util.PrefUtils;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,9 +30,9 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 	private static String TAG = "GardensActivity";
 	
     GardenRESTClient gardenRESTClient;
-    @FragmentById(R.id.gardensFragmentContainer)
+    @FragmentById
     GardensFragment gardensFragment;
-    @FragmentById(R.id.gardenDetailContainer)
+    @FragmentById
     GardenDetailFragment gardenDetailFragment;
     @Pref BarazkidePrefs_ prefs;
 	
@@ -44,7 +44,7 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 		
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.garden_spinner_menu,
-				android.R.layout.simple_spinner_dropdown_item);
+				android.R.layout.simple_selectable_list_item);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -69,5 +69,12 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 	@OptionsItem(R.id.menu_add)
 	void addSelected(){
 		EditGardenActivity_.intent(this).start();
+	}
+	
+	@OptionsItem(R.id.menu_log_out)
+	void logOutSelected(){
+		PrefUtils.clearUserPrefs(prefs);
+		finish();
+		LogInActivity_.intent(this).start();
 	}
 }

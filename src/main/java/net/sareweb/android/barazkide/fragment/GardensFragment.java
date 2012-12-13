@@ -3,6 +3,7 @@ package net.sareweb.android.barazkide.fragment;
 import java.util.List;
 
 import net.sareweb.android.barazkide.R;
+import net.sareweb.android.barazkide.activity.GardenDetailActivity_;
 import net.sareweb.android.barazkide.adapter.GardenAdapter;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -43,7 +47,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 			break;
 		case Constants.GARDEN_LIST_FOLLWED:
 			gardenListTypeTextView.setText("Followed gardens");
-			getGardens(11021);
+			getFollowedGardes(prefs.userId().get());
 			break;
 		case Constants.GARDEN_LIST_MINE:
 			gardenListTypeTextView.setText("My gardens");
@@ -58,6 +62,12 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, 0, false, 0));
 	}
 	
+	@Background
+	public void getFollowedGardes(long userId){
+		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
+		getGardensResult(gardenRestClient.getFollowedGardensOlderThanDate(userId, System.currentTimeMillis(), Constants.DEFAULT_BLOCK_SIZE));
+	}
+	
 	@UiThread
 	public void getGardensResult(List<Garden> gardens){
 		ListView gardensListView = (ListView) getActivity().findViewById(R.id.garden_list_view);
@@ -70,16 +80,15 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 		Garden garden = (Garden) view.getTag();
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailContainer);
+		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailFragment);
 		if(gardenDetailFragment!=null){
 			gardenDetailFragment.setGardenContent(garden);
 			fragmentTransaction.commitAllowingStateLoss();
 		}
 		else{
-			Toast.makeText(getActivity(), "Hey! , this is too small!", Toast.LENGTH_SHORT).show();
+			GardenDetailActivity_.intent(getSherlockActivity()).garden(garden).start();
 		}
 		
 	}
-
 
 }

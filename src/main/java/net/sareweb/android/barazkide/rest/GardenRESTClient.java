@@ -40,6 +40,15 @@ public class GardenRESTClient extends LDRESTClient<Garden> {
 		Log.d(TAG, "requestURL " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
+	
+	public List<Garden> getFollowedGardensOlderThanDate(long userId, long followingDate, int blockSize){
+		String requestURL = getBaseURL() + "/get-followed-gardens-older-than-date";
+		requestURL = addParamToRequestURL(requestURL, "user-id", userId);
+		requestURL = addParamToRequestURL(requestURL, "following-date", followingDate);
+		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
+		Log.d(TAG, "requestURL " + requestURL);
+		return getList(requestURL, HttpMethod.GET);
+	}
 
 	@Override
 	public String getPorltetContext() {
