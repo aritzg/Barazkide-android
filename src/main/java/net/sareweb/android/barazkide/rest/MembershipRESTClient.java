@@ -1,0 +1,52 @@
+package net.sareweb.android.barazkide.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sareweb.android.barazkide.model.Membership;
+import net.sareweb.lifedroid.model.User;
+import net.sareweb.lifedroid.rest.generic.LDRESTClient;
+
+import org.springframework.http.HttpMethod;
+
+import android.util.Log;
+
+public class MembershipRESTClient extends LDRESTClient<Membership> {
+
+	public MembershipRESTClient(BarazkideConnectionData connectionData) {
+		super(connectionData);
+	}
+	
+	public Membership addMembership(long userId, long gardenId){
+		String requestURL = getBaseURL() + "/add-membership";
+		requestURL = addParamToRequestURL(requestURL, "user-id", userId);
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
+	public boolean removeMembership(long userId, long gardenId){
+		String requestURL = getBaseURL() + "/remove-membership";
+		requestURL = addParamToRequestURL(requestURL, "user-id", userId);
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		Log.d(TAG, "requestURL " + requestURL);
+		return runForBoolean(requestURL, HttpMethod.GET);
+	}
+	
+	public List<User> findMemberUsers(long gardenId){
+		String requestURL = getBaseURL() + "/find-member-users";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		Log.d(TAG, "requestURL " + requestURL);
+		List<User> listUsers = new ArrayList<User>();
+		return (List<User>)runForObject(requestURL, HttpMethod.GET, listUsers.getClass());
+	}
+	
+	public String getPorltetContext() {
+		return "Barazkide-portlet";
+	}
+
+	@Override
+	public String getModelName() {
+		return "following";
+	}
+
+}
