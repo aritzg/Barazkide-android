@@ -5,11 +5,23 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/txName"
+        android:id="@+id/txComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="gardenDetail"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="txComment"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <GridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/memberGrid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="60dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 
 </LinearLayout>

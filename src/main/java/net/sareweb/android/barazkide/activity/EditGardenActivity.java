@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -41,6 +42,7 @@ public class EditGardenActivity extends SherlockFragmentActivity{
 	
 	@OptionsItem(R.id.menu_save)
 	void saveSelected() {
+		Log.d(TAG, "Saving garden");
 		dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.setMessage("Saving garden");

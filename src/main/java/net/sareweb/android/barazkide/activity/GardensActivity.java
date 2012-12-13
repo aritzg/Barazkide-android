@@ -25,29 +25,38 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
 @EActivity(R.layout.gardens_activity)
 @OptionsMenu(R.menu.main_menu)
-public class GardensActivity extends SherlockFragmentActivity implements OnNavigationListener {
+public class GardensActivity extends SherlockFragmentActivity implements
+		OnNavigationListener {
 
 	private static String TAG = "GardensActivity";
-	
-    GardenRESTClient gardenRESTClient;
-    @FragmentById
-    GardensFragment gardensFragment;
-    @FragmentById
-    GardenDetailFragment gardenDetailFragment;
-    @Pref BarazkidePrefs_ prefs;
-	
+
+	GardenRESTClient gardenRESTClient;
+	@FragmentById
+	GardensFragment gardensFragment;
+	@FragmentById
+	GardenDetailFragment gardenDetailFragment;
+	@Pref
+	BarazkidePrefs_ prefs;
+	ActionBar actionBar;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
-		gardenRESTClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
-		
+		gardenRESTClient = new GardenRESTClient(new BarazkideConnectionData(
+				prefs));
+
+		actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		SpinnerAdapter mSpinnerAdapter = ArrayAdapter.createFromResource(this,
 				R.array.garden_spinner_menu,
 				android.R.layout.simple_selectable_list_item);
-
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setListNavigationCallbacks(mSpinnerAdapter, this);
 	}
 
@@ -60,19 +69,20 @@ public class GardensActivity extends SherlockFragmentActivity implements OnNavig
 	private void loadGardens(int gardenListType) {
 		Log.d(TAG, "Loading gardens");
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		FragmentTransaction fragmentTransaction = fragmentManager
+				.beginTransaction();
 		gardensFragment.setGardenContent(gardenListType);
 		fragmentTransaction.commitAllowingStateLoss();
-		
+
 	}
-	
+
 	@OptionsItem(R.id.menu_add)
-	void addSelected(){
+	void addSelected() {
 		EditGardenActivity_.intent(this).start();
 	}
-	
+
 	@OptionsItem(R.id.menu_log_out)
-	void logOutSelected(){
+	void logOutSelected() {
 		PrefUtils.clearUserPrefs(prefs);
 		finish();
 		LogInActivity_.intent(this).start();

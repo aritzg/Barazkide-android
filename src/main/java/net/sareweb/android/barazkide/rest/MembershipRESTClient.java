@@ -36,8 +36,7 @@ public class MembershipRESTClient extends LDRESTClient<Membership> {
 		String requestURL = getBaseURL() + "/find-member-users";
 		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
 		Log.d(TAG, "requestURL " + requestURL);
-		List<User> listUsers = new ArrayList<User>();
-		return (List<User>)runForObject(requestURL, HttpMethod.GET, listUsers.getClass());
+		return (List<User>)getList(requestURL, HttpMethod.GET, User.class);
 	}
 	
 	public String getPorltetContext() {
@@ -46,7 +45,7 @@ public class MembershipRESTClient extends LDRESTClient<Membership> {
 
 	@Override
 	public String getModelName() {
-		return "following";
+		return "membership";
 	}
 
 }
