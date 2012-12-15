@@ -8,6 +8,8 @@ public class Membership extends LDObject{
 	private long userId;
 	private long gardenId;
 	private long membershipDate;
+	private int status;
+	
 	public long getMembershipId() {
 		return membershipId;
 	}
@@ -32,4 +34,11 @@ public class Membership extends LDObject{
 	public void setMembershipDate(long membershipDate) {
 		this.membershipDate = membershipDate;
 	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 }
