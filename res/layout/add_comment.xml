@@ -5,28 +5,31 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/newGarden"
+        android:id="@+id/txTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="New garden!"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/txName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:ems="10" 
-        android:hint="What is the name of your garden?"/>
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/txComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="200dp"
         android:layout_weight="0"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:hint="Describe your awesome garden!"/>
+        android:hint="Leave your comment!">
+        <requestFocus />
+
+	</EditText>
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="Send" />
 
 </LinearLayout>

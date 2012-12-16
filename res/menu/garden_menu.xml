@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/add_image"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:showAsAction="always|withText"
+        android:title="Add image"/>
+    <item
+        android:id="@+id/add_comment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:showAsAction="always|withText"
+        android:title="Add image"/>
+    <item
+        android:id="@+id/add_member"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:showAsAction="always|withText"
+        android:title="Add member"/>
+</menu>
