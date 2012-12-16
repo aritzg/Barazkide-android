@@ -35,38 +35,26 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 	private static String TAG = "GardensFragment";
 	@Pref BarazkidePrefs_ prefs; 
 	
-	int gardenListType = 0;
-
 	public void setGardenContent(int gardenListType){
-		TextView gardenListTypeTextView = (TextView) getView().findViewById(
-				R.id.gardenListType);
+		getGardens(prefs.userId().get(), gardenListType);
+	}
+	
+	@Background
+	public void getGardens(long userId, int gardenListType){
+		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
 		switch (gardenListType) {
 		case Constants.GARDEN_LIST_ALL:
-			gardenListTypeTextView.setText("All gardens");
-			getGardens(0);
+			getGardensResult(gardenRestClient.getGardens());
 			break;
 		case Constants.GARDEN_LIST_FOLLWED:
-			gardenListTypeTextView.setText("Followed gardens");
-			getFollowedGardes(prefs.userId().get());
+			getGardensResult(gardenRestClient.getFollowedGardensOlderThanDate(userId, System.currentTimeMillis(), Constants.DEFAULT_BLOCK_SIZE));
 			break;
 		case Constants.GARDEN_LIST_MINE:
-			gardenListTypeTextView.setText("My gardens");
-			getGardens(10196);
+			getGardensResult(gardenRestClient.getUserGardensFromDate(userId, 0, false, 0));
 			break;
 		}
 	}
 	
-	@Background
-	public void getGardens(long ownerUserId){
-		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
-		getGardensResult(gardenRestClient.getUserGardensFromDate(ownerUserId, 0, false, 0));
-	}
-	
-	@Background
-	public void getFollowedGardes(long userId){
-		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
-		getGardensResult(gardenRestClient.getFollowedGardensOlderThanDate(userId, System.currentTimeMillis(), Constants.DEFAULT_BLOCK_SIZE));
-	}
 	
 	@UiThread
 	public void getGardensResult(List<Garden> gardens){

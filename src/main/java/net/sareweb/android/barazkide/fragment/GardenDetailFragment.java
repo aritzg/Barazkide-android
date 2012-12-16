@@ -4,11 +4,22 @@ import java.util.List;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.adapter.MemberAdapter;
+import net.sareweb.android.barazkide.cache.BarazkideCache;
+import net.sareweb.android.barazkide.image.ImageLoader;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
+import net.sareweb.android.barazkide.rest.FollowingRESTClient;
 import net.sareweb.android.barazkide.rest.MembershipRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
 import net.sareweb.lifedroid.model.User;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
@@ -17,31 +28,44 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.util.Log;
-import android.widget.GridView;
-import android.widget.TextView;
-
 @EFragment(R.layout.garden_detail)
-public class GardenDetailFragment extends SherlockFragment {
+public class GardenDetailFragment extends SherlockFragment implements OnCheckedChangeListener{
 	
 	private static String TAG = "GardenDetailFragment";
 	@Pref BarazkidePrefs_ prefs;
 	MembershipRESTClient membershipRESTClient;
+	FollowingRESTClient followingRESTClient;
 	@ViewById
 	GridView memberGrid;
+	@ViewById
+	TextView txComment;
+	@ViewById
+	ToggleButton tgFollow;
+	@ViewById
+	ImageView imgGarden;
 	Garden garden;
 	
 	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		membershipRESTClient = new MembershipRESTClient(new BarazkideConnectionData(prefs));
+		followingRESTClient = new FollowingRESTClient(new BarazkideConnectionData(prefs));
+	}
+
 	public void setGardenContent(Garden garden){
 		this.garden=garden;
-		TextView txComment = (TextView)(getActivity().findViewById(R.id.txComment));
+		txComment = (TextView)(getActivity().findViewById(R.id.txComment));
 		txComment.setText(garden.getComment());
+		tgFollow.setChecked(BarazkideCache.iAmFollowingGarden(garden.getGardenId()));
+		tgFollow.setOnCheckedChangeListener(this);
 		getMembers();
+		ImageLoader imgLoader = new ImageLoader(getActivity());
+		imgLoader.displayImage("http://192.168.0.14:9080/documents/10180/0/huerta1", imgGarden);
 	}
 	
 	@Background
 	public void getMembers(){
-		membershipRESTClient = new MembershipRESTClient(new BarazkideConnectionData(prefs));
 		getMembersResult(membershipRESTClient.findMemberUsers(garden.getGardenId()));
 	}
 	
@@ -52,5 +76,19 @@ public class GardenDetailFragment extends SherlockFragment {
 			memberGrid.setAdapter(new MemberAdapter(getActivity(), members));
 		}
 	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if(isChecked){
+			followingRESTClient.addFollowing(prefs.userId().get(), garden.getGardenId());
+			BarazkideCache.followGarden(garden);
+		}
+		else{
+			followingRESTClient.removeFollowing(prefs.userId().get(), garden.getGardenId());
+			BarazkideCache.unfollowGarden(garden);
+		}
+	}
+	
+	
 
 }

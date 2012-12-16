@@ -12,6 +12,21 @@
         android:text="txComment"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ToggleButton
+        android:id="@+id/tgFollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:textOn="Follwing"
+        android:textOff="Not following"/>
+
+    <ImageView
+        android:id="@+id/imgGarden"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_weight="0"
+        android:src="@drawable/abs__menu_dropdown_panel_holo_light" />
+
     <GridView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/memberGrid"
@@ -23,5 +38,6 @@
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp" />
+    
 
 </LinearLayout>

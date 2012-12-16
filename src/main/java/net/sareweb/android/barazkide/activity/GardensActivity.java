@@ -22,6 +22,7 @@ import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
+import net.sareweb.android.barazkide.fragment.EventsFragment;
 
 @EActivity(R.layout.gardens_activity)
 @OptionsMenu(R.menu.main_menu)
@@ -35,6 +36,8 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	GardensFragment gardensFragment;
 	@FragmentById
 	GardenDetailFragment gardenDetailFragment;
+	@FragmentById
+	EventsFragment eventsFragment;
 	@Pref
 	BarazkidePrefs_ prefs;
 	ActionBar actionBar;
@@ -67,7 +70,7 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	}
 
 	private void loadGardens(int gardenListType) {
-		Log.d(TAG, "Loading gardens");
+		Log.d(TAG, "Loading gardens " + gardenListType);
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
