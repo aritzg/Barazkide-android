@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".activity.RegisterActivity_"/>
         <activity android:name=".activity.GardensActivity_"/>
+        <activity android:name=".activity.AddCommentActivity_"/>
         <activity android:name=".activity.GardenDetailActivity_"/>
         <activity android:name=".activity.EditGardenActivity_"/>
     </application>

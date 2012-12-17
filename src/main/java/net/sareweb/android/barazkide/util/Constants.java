@@ -13,4 +13,10 @@ public class Constants {
 	public static String DEFAULT_PASS="test1";
 	
 	public static int DEFAULT_BLOCK_SIZE=20;
+	
+	public static final String EVENT_TYPE_IMAGE		="IMAGE";
+	public static final String EVENT_TYPE_COMMENT	="COMMENT";
+	public static final String EVENT_TYPE_RATE		="RATE";
+	public static final String EVENT_TYPE_ADD_MEMBER="ADD_MEMBER";
+	public static final String EVENT_TYPE_FOLLOW	="FOLLOW";
 }

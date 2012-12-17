@@ -2,18 +2,30 @@ package net.sareweb.android.barazkide.rest;
 
 import java.util.List;
 
+import net.sareweb.android.barazkide.model.Event;
+import net.sareweb.lifedroid.rest.generic.LDRESTClient;
+
 import org.springframework.http.HttpMethod;
 
 import android.util.Log;
-
-import net.sareweb.android.barazkide.model.Event;
-import net.sareweb.lifedroid.rest.generic.LDRESTClient;
 
 public class EventRESTClient extends LDRESTClient<Event> {
 
 	public EventRESTClient(BarazkideConnectionData connectionData) {
 		super(connectionData);
 	}
+	
+	public Event addEvent(long gardenId, long creatorUserId, long destinationUserId, long gardenImageId, String eventType, String eventText){
+		String requestURL = getBaseURL() + "/add-event";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "creator-user-id", creatorUserId);
+		requestURL = addParamToRequestURL(requestURL, "destination-user-id", destinationUserId);
+		requestURL = addParamToRequestURL(requestURL, "garden-image-id", gardenImageId);
+		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
+		requestURL = addParamToRequestURL(requestURL, "event-text", eventText, true);
+		return run(requestURL, HttpMethod.POST);
+	}
+		
 	
 	public List<Event> findEventsInFollowedGardensOlderThanDate(long userId, long followingDate, int blockSize){
 		String requestURL = getBaseURL() + "/find-events-in-followed-gardens-older-than-date";
