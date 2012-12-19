@@ -1,5 +1,7 @@
 package net.sareweb.android.barazkide.adapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.barazkide.R;
@@ -45,10 +47,16 @@ public class EventAdapter extends BaseAdapter{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.event_row, null);
 		}
-		TextView txEventType = (TextView) convertView.findViewById(R.id.txEventType);
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm");
+		Event event = events.get(position);
 		
-		String type=events.get(position).getEventType();
-		txEventType.setText(type);
+		TextView txEventDate = (TextView) convertView.findViewById(R.id.txEventDate);
+		Date tmpDate = new Date(event.getCreateDate());
+		txEventDate.setText(sdf.format(tmpDate));
+		
+		TextView txEventText = (TextView) convertView.findViewById(R.id.txEventText);
+		txEventText.setText(event.getEventText());
+		
 		convertView.setTag(events.get(position));
 		return convertView;
 	}

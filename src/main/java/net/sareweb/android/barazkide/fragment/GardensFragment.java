@@ -55,7 +55,6 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 		}
 	}
 	
-	
 	@UiThread
 	public void getGardensResult(List<Garden> gardens){
 		ListView gardensListView = (ListView) getActivity().findViewById(R.id.garden_list_view);

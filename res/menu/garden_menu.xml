@@ -10,7 +10,7 @@
         android:id="@+id/add_comment"
         android:icon="@android:drawable/ic_menu_edit"
         android:showAsAction="always|withText"
-        android:title="Add image"/>
+        android:title="Add comment"/>
     <item
         android:id="@+id/add_member"
         android:icon="@android:drawable/ic_menu_agenda"

@@ -4,28 +4,44 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/txComment"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="txComment"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:orientation="vertical" >
 
-    <ToggleButton
-        android:id="@+id/tgFollow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:textOn="Follwing"
-        android:textOff="Not following"/>
+        <TextView
+            android:id="@+id/txComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="txComment"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/imgGarden"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_weight="0"
-        android:src="@drawable/abs__menu_dropdown_panel_holo_light" />
+        <ToggleButton
+            android:id="@+id/tgFollow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textOff="Not following"
+            android:textOn="Follwing" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0" >
+
+            <ImageView
+                android:id="@+id/imgGarden"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:src="@drawable/abs__menu_dropdown_panel_holo_light" />
+            
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <GridView
         xmlns:android="http://schemas.android.com/apk/res/android"
