@@ -18,17 +18,10 @@
             android:text="txComment"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ToggleButton
-            android:id="@+id/tgFollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textOff="Not following"
-            android:textOn="Follwing" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="0" >
 
             <ImageView
@@ -36,7 +29,14 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_weight="0"
-                android:src="@drawable/abs__menu_dropdown_panel_holo_light" />
+                android:src="@drawable/camera" />
+            
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_weight="0"
+                android:src="@drawable/map" />
             
 
         </LinearLayout>

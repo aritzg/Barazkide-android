@@ -15,7 +15,8 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.R;
+import net.sareweb.android.barazkide.R;
+
 import android.os.Handler;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,9 +36,13 @@ public class ImageLoader {
         executorService=Executors.newFixedThreadPool(5);
     }
     
-    final int stub_id=R.drawable.alert_dark_frame;
+    final int stub_id=R.drawable.camera;
     public void displayImage(String url, ImageView imageView)
     {
+    	if(url==null || url.equals("")){
+    		imageView.setImageResource(stub_id);
+    		return;
+    	}
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)

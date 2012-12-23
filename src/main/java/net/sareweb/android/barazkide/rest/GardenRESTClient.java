@@ -25,6 +25,14 @@ public class GardenRESTClient extends LDRESTClient<Garden> {
 		return run(requestURL, HttpMethod.POST);
 	}
 	
+	public Garden updateGardenImage(long gardenId, String imageTitle){
+		String requestURL = getBaseURL() + "/update-garden-image";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "image-title", imageTitle);
+		Log.d(TAG, "requestURL " + requestURL);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
 	public List<Garden> getGardens(){
 		String requestURL = getBaseURL() + "/get-gardens";
 		Log.d(TAG, "requestURL " + requestURL);

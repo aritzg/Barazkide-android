@@ -1,10 +1,14 @@
 package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
+import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
 import net.sareweb.android.barazkide.util.ConnectionUtils;
+import net.sareweb.android.barazkide.util.Constants;
+import net.sareweb.lifedroid.model.DLFolder;
+import net.sareweb.lifedroid.rest.DLFolderRESTClient;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -29,12 +33,14 @@ public class EditGardenActivity extends SherlockFragmentActivity{
 	private static String TAG = "EditGardenActivity";
 	@Pref BarazkidePrefs_ prefs;
 	GardenRESTClient gardenRESTClient;
+	DLFolderRESTClient dlFolderRESTClient;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		gardenRESTClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
+		dlFolderRESTClient = new DLFolderRESTClient(new BarazkideConnectionData(prefs));
 		
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -57,7 +63,14 @@ public class EditGardenActivity extends SherlockFragmentActivity{
 	
 	@Background
 	void saveGarden(){
-		gardenRESTClient.addGarden(txName.getText().toString(), txComment.getText().toString(), 0.0, 0.0, 0);
+		Garden garden = gardenRESTClient.addGarden(txName.getText().toString(), txComment.getText().toString(), 0.0, 0.0, 0);
+		DLFolder folder = new DLFolder();
+		folder.setDescription(garden.getName());
+		folder.setGroupId(Constants.GROUP);
+		folder.setName(String.valueOf(garden.getGardenId()));
+		folder.setParentFolderId(0l);
+		folder.setRepositoryId(Constants.GROUP);
+		dlFolderRESTClient.addFolder(folder);
 		saveGardenResult();
 	}
 	

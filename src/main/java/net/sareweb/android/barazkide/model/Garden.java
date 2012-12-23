@@ -9,7 +9,8 @@ public class Garden extends LDObject{
 	private String comment;
 	private double lat;
 	private double lng;
-	
+	private String imageTitle;
+	private long gardenFolderId;
 	
 	public long getGardenId() {
 		return gardenId;
@@ -40,6 +41,18 @@ public class Garden extends LDObject{
 	}
 	public void setLng(double lng) {
 		this.lng = lng;
+	}
+	public String getImageTitle() {
+		return imageTitle;
+	}
+	public void setImageTitle(String imageTitle) {
+		this.imageTitle = imageTitle;
+	}
+	public long getGardenFolderId() {
+		return gardenFolderId;
+	}
+	public void setGardenFolderId(long gardenFolderId) {
+		this.gardenFolderId = gardenFolderId;
 	}
 	
 }
