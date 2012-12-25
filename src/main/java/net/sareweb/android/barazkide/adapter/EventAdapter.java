@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import net.sareweb.android.barazkide.R;
+import net.sareweb.android.barazkide.cache.UserCache;
 import net.sareweb.android.barazkide.image.ImageLoader;
 import net.sareweb.android.barazkide.model.Event;
 import net.sareweb.android.barazkide.util.Constants;
 import net.sareweb.android.barazkide.util.ImageUtils;
+import net.sareweb.lifedroid.model.User;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,12 +55,15 @@ public class EventAdapter extends BaseAdapter{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.event_row, null);
 		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm");
 		Event event = events.get(position);
 		
+		User user = UserCache.getUser(event.getCreatorUserId());
+		
 		TextView txEventDate = (TextView) convertView.findViewById(R.id.txEventDate);
 		Date tmpDate = new Date(event.getCreateDate());
-		txEventDate.setText(sdf.format(tmpDate));
+		txEventDate.setText(user.getScreenName() + " @ " + sdf.format(tmpDate));
 		
 		if(event.getEventType().equals(Constants.EVENT_TYPE_COMMENT)){
 			drawCommentEvent(convertView, event);

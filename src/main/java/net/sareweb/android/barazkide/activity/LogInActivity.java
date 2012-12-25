@@ -2,6 +2,7 @@ package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.cache.BarazkideCache;
+import net.sareweb.android.barazkide.cache.UserCache;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
 import net.sareweb.android.barazkide.util.ConnectionUtils;
@@ -35,6 +36,7 @@ public class LogInActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		if(PrefUtils.isUserLogged(prefs)){
 			BarazkideCache.init(prefs);
+			UserCache.init(prefs);
 			GardensActivity_.intent(this).start();
 		}
 	}
@@ -76,6 +78,7 @@ public class LogInActivity extends Activity {
 		else{
 			loginUser(user);
 			BarazkideCache.init(prefs);
+			UserCache.init(prefs);
 			finish();
 			GardensActivity_.intent(this).start();
 		}

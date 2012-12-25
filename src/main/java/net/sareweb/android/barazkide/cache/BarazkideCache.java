@@ -8,15 +8,19 @@ import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
+import net.sareweb.lifedroid.model.User;
+import net.sareweb.lifedroid.rest.UserRESTClient;
 
 public class BarazkideCache {
 
 	private static BarazkidePrefs_ prefs;
 	
 	private static GardenRESTClient gardenRESTClient;
+	private static UserRESTClient userRESTClient;
 
 	private static Map<Long, Garden> gardens_member;
 	private static Map<Long, Garden> gardens_followed;
+	private static Map<Long, User> users = new HashMap<Long, User>();
 	
 	public static void init(BarazkidePrefs_ preferences){
 		prefs = preferences;
