@@ -52,9 +52,10 @@ public class MembershipRESTClient extends LDRESTClient<Membership> {
 		return runForBoolean(requestURL, HttpMethod.GET);
 	}
 
-	public List<User> findMemberUsers(long gardenId) {
+	public List<User> findMemberUsers(long gardenId, int status) {
 		String requestURL = getBaseURL() + "/find-member-users";
 		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "status", status);
 		Log.d(TAG, "requestURL " + requestURL);
 		return (List<User>) getList(requestURL, HttpMethod.GET, User.class);
 	}

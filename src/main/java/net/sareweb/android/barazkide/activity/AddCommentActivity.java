@@ -60,7 +60,7 @@ public class AddCommentActivity extends SherlockActivity{
 	
 	@Background
 	void saveComment(){
-		eventRESTClient.addEvent(garden.getGardenId(),prefs.userId().get(), 0, 0, Constants.EVENT_TYPE_COMMENT, txComment.getText().toString());
+		eventRESTClient.addEvent(garden.getGardenId(),prefs.userId().get(), 0, Constants.EVENT_TYPE_COMMENT, txComment.getText().toString(), 0, "");
 		saveCommentResult();
 	}
 	

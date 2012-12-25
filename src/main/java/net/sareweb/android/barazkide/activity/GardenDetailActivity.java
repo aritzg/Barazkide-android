@@ -2,10 +2,12 @@ package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.fragment.GardenDetailFragment;
+import net.sareweb.android.barazkide.listener.tab.GardenDetailTabListener;
 import net.sareweb.android.barazkide.model.Garden;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
@@ -25,14 +27,27 @@ public class GardenDetailActivity extends SherlockFragmentActivity{
 		super.onCreate(savedInstanceState);
 		
 		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setTitle(garden.getName());
+
+		Tab gardenDetailTab = actionBar.newTab();
+		gardenDetailTab.setText("Detalis");
+		gardenDetailTab.setTabListener(new GardenDetailTabListener(garden, GardenDetailTabListener.GARDEN_DETAILS, this));
+		actionBar.addTab(gardenDetailTab);
+		
+		Tab gardenEventsTab = actionBar.newTab();
+		gardenEventsTab.setText("Events");
+		gardenEventsTab.setTabListener(new GardenDetailTabListener(garden, GardenDetailTabListener.GARDEN_EVENTS, this));
+		actionBar.addTab(gardenEventsTab);
+		
+		//actionBar.setSelectedNavigationItem(0);
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		gardenDetailFragment.setGardenContent(garden);
+		//gardenDetailFragment.setGardenContent(garden);
 	}
 	
 	@OptionsItem

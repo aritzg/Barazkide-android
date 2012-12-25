@@ -8,11 +8,11 @@ public class Event extends LDObject{
 	private long gardenId;
 	private long creatorUserId;
 	private long destinationUserId;
-	private long gardenImageId;
+	private long folderId;
+	private String imageTitle;
 	private long createDate;
 	private String eventType;
 	private String eventText;
-	
 	public long getEventId() {
 		return eventId;
 	}
@@ -37,11 +37,17 @@ public class Event extends LDObject{
 	public void setDestinationUserId(long destinationUserId) {
 		this.destinationUserId = destinationUserId;
 	}
-	public long getGardenImageId() {
-		return gardenImageId;
+	public long getFolderId() {
+		return folderId;
 	}
-	public void setGardenImageId(long gardenImageId) {
-		this.gardenImageId = gardenImageId;
+	public void setFolderId(long folderId) {
+		this.folderId = folderId;
+	}
+	public String getImageTitle() {
+		return imageTitle;
+	}
+	public void setImageTitle(String imageTitle) {
+		this.imageTitle = imageTitle;
 	}
 	public long getCreateDate() {
 		return createDate;
@@ -61,5 +67,6 @@ public class Event extends LDObject{
 	public void setEventText(String eventText) {
 		this.eventText = eventText;
 	}
-
+	
+	
 }

@@ -19,6 +19,12 @@ public class Constants {
 	public static final String EVENT_TYPE_RATE		="RATE";
 	public static final String EVENT_TYPE_ADD_MEMBER="ADD_MEMBER";
 	public static final String EVENT_TYPE_FOLLOW	="FOLLOW";
+	public static final String EVENT_TYPE_LOCATION	="LOCATION";
+	
+	public static final int MEMBERSHIP_STATUS_ANY = -1;
+	public static final int MEMBERSHIP_STATUS_REQUESTED = 0;
+	public static final int MEMBERSHIP_STATUS_MEMBER = 1;
+	public static final int MEMBERSHIP_STATUS_REJECTED = 2;
 	
 	public static final long IMAGE_FOLDER = 114909;
 	public static final long GROUP = 120849;

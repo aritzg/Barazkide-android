@@ -18,7 +18,7 @@
         android:name="net.sareweb.android.barazkide.fragment.GardenDetailFragment_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
+        android:layout_weight="0.9"
         tools:layout="@layout/garden_detail" />
     
     <fragment

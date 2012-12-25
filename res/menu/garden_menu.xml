@@ -12,8 +12,13 @@
         android:showAsAction="always|withText"
         android:title="Add comment"/>
     <item
-        android:id="@+id/add_member"
+        android:id="@+id/invite_member"
         android:icon="@android:drawable/ic_menu_agenda"
         android:showAsAction="always|withText"
-        android:title="Add member"/>
+        android:title="Invite member"/>
+    <item
+        android:id="@+id/follow"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="always|withText"
+        android:title="Follow"/>
 </menu>

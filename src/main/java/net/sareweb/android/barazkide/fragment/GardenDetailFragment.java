@@ -11,14 +11,17 @@ import net.sareweb.android.barazkide.cache.BarazkideCache;
 import net.sareweb.android.barazkide.image.ImageLoader;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
+import net.sareweb.android.barazkide.rest.EventRESTClient;
 import net.sareweb.android.barazkide.rest.FollowingRESTClient;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.rest.MembershipRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
+import net.sareweb.android.barazkide.util.Constants;
 import net.sareweb.android.barazkide.util.ImageUtils;
 import net.sareweb.lifedroid.model.DLFileEntry;
 import net.sareweb.lifedroid.model.User;
 import net.sareweb.lifedroid.rest.DLFileEntryRESTClient;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -40,6 +43,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.FragmentArg;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -56,15 +60,18 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	FollowingRESTClient followingRESTClient;
 	DLFileEntryRESTClient dlFileEntryRESTClient;
 	GardenRESTClient gardenRESTClient;
+	EventRESTClient eventRESTClient;
 	@ViewById
 	GridView memberGrid;
 	@ViewById
 	TextView txComment;
 	@ViewById
 	ImageView imgGarden;
+	@FragmentArg
 	Garden garden;
 	Dialog dialog;
 	ImageLoader imgLoader;
+	String imageMessage="";
 	
 	
 	@Override
@@ -74,40 +81,65 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		followingRESTClient = new FollowingRESTClient(new BarazkideConnectionData(prefs));
 		dlFileEntryRESTClient = new DLFileEntryRESTClient(new BarazkideConnectionData(prefs));
 		gardenRESTClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
+		eventRESTClient = new EventRESTClient(new BarazkideConnectionData(prefs));
+
 		imgLoader = new ImageLoader(getActivity());
+		
+	}
+	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(garden!=null)setGardenContent(garden);
 	}
 
 	public void setGardenContent(Garden garden){
 		this.garden=garden;
-		txComment = (TextView)(getActivity().findViewById(R.id.txComment));
+		
+		txComment = (TextView)(getSherlockActivity().findViewById(R.id.txComment));
 		txComment.setText(garden.getComment());
 		showEventsFragment();
 		getMembers();
 		imgLoader.displayImage(ImageUtils.getGardenImageUrl(garden), imgGarden);
-		
+	}
+	
+	@OptionsItem(R.id.add_image)
+	void addImage(){
+		showAddImageDialog(true);
 	}
 	
 	@Click(R.id.imgGarden)
 	void clickImage(){
+		 showAddImageDialog(false);
+	}
+	
+	
+	private void showAddImageDialog(boolean withMessage){
 		dialog = new Dialog(getActivity());
 		dialog.setTitle("Gallery or Camera?");
 		dialog.setContentView(R.layout.img_camera_dialog);
 		dialog.setCanceledOnTouchOutside(true);
+		if(withMessage){
+			TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
+			txImageMessage.setVisibility(View.VISIBLE);
+		}
 		ImageView imgGallery = (ImageView)dialog.findViewById(R.id.imgGallery);
 		imgGallery.setOnClickListener(this);
 		ImageView imgCamera = (ImageView)dialog.findViewById(R.id.imgCamera);
 		imgCamera.setOnClickListener(this);
 		dialog.show();
-	}	
+	}
 	
 	@OptionsItem(R.id.add_comment)
 	void addSelected() {
+		//TODO: Should this be a dialog instead of an activity?
 		AddCommentActivity_.intent(getActivity()).garden(garden).start();
 	}
 	
 	@Background
 	public void getMembers(){
-		getMembersResult(membershipRESTClient.findMemberUsers(garden.getGardenId()));
+		getMembersResult(membershipRESTClient.findMemberUsers(garden.getGardenId(), Constants.MEMBERSHIP_STATUS_MEMBER));
 	}
 	
 	@UiThread
@@ -143,20 +175,35 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	@Override
 	public void onClick(View v) {
 		Intent intent;
+		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
+		imageMessage=txImageMessage.getText().toString();
+		int reqCode; 
 		switch (v.getId()) {
 		case R.id.imgGallery:
+			if(txImageMessage.getVisibility()==View.VISIBLE){
+				reqCode=GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT;
+			}
+			else{
+				reqCode=GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_GARDEN;
+			}
 			intent = new Intent(
 					Intent.ACTION_PICK,
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent,
-					GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE);
+					reqCode);
 			break;
 
 		case R.id.imgCamera:
+			if(txImageMessage.getVisibility()==View.VISIBLE){
+				reqCode=CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT;
+			}
+			else{
+				reqCode=CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN;
+			}
 			intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			Uri fileUri = Uri.fromFile(new File(""));
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-			startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			startActivityForResult(intent, reqCode);
 			break;
 		}
 		dialog.cancel();
@@ -164,11 +211,10 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE:
+		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_GARDEN:
 			if (resultCode == getActivity().RESULT_OK) {
 				Uri targetUri = data.getData();
 
-				File original = new File(targetUri.toString());
 	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(garden.getGardenId()));
 	        	
 				try {
@@ -176,6 +222,22 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 					ImageUtils.resizeFile(dest);
 					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(garden, dest);
 					updateGardenImage(dlFile, dest);
+				} catch (IOException e) {
+					Log.e(TAG, "Error gettig/copying or uploading file",e);
+				}
+			}
+			break;
+		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT:
+			if (resultCode == getActivity().RESULT_OK) {
+				Uri targetUri = data.getData();
+
+	        	File dest = ImageUtils.getOutputMediaFile(String.valueOf(garden.getGardenId()));
+	        	
+				try {
+					ImageUtils.copyInputStreamToFile(getActivity().getContentResolver().openInputStream(targetUri), dest);
+					ImageUtils.resizeFile(dest);
+					DLFileEntry dlFile = ImageUtils.composeDLFileEntry(garden, dest);
+					addImageWithComment(dlFile, dest);
 				} catch (IOException e) {
 					Log.e(TAG, "Error gettig/copying or uploading file",e);
 				}
@@ -200,8 +262,16 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		imgLoader.displayImage(ImageUtils.getGardenImageUrl(garden), imgGarden);
 	}
 	
-	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE = 200;
+	@Background
+	void addImageWithComment(DLFileEntry dlFileEntry, File file){
+		DLFileEntry dlFile = dlFileEntryRESTClient.addFileEntry(dlFileEntry, file);
+		eventRESTClient.addEvent(garden.getGardenId(), prefs.userId().get(), 0, Constants.EVENT_TYPE_COMMENT, imageMessage, garden.getGardenFolderId(),dlFileEntry.getTitle()); 
+	}
+	
+	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;
+	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;
+	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 200;
+	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 201;
 	
 
 }

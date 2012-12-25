@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import net.sareweb.android.barazkide.model.Event;
 import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.lifedroid.model.DLFileEntry;
 
@@ -154,6 +155,18 @@ public class ImageUtils {
 		}
 		else{
 			String imageUrl = "http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/documents/" + Constants.GROUP + "/" + garden.getGardenFolderId() + "/" + garden.getImageTitle();
+			Log.d(TAG, "imageUrl " + imageUrl);
+			return  imageUrl;
+		}
+	}
+	
+	public static String getEventImageUrl(Event event){
+		if(event.getImageTitle()==null || event.getImageTitle().equals("")){
+			Log.d(TAG, "No image set");
+			return "";
+		}
+		else{
+			String imageUrl = "http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/documents/" + Constants.GROUP + "/" + event.getFolderId() + "/" + event.getImageTitle();
 			Log.d(TAG, "imageUrl " + imageUrl);
 			return  imageUrl;
 		}

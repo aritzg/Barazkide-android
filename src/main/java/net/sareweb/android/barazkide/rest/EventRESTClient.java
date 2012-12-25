@@ -15,14 +15,15 @@ public class EventRESTClient extends LDRESTClient<Event> {
 		super(connectionData);
 	}
 	
-	public Event addEvent(long gardenId, long creatorUserId, long destinationUserId, long gardenImageId, String eventType, String eventText){
+	public Event addEvent(long gardenId, long creatorUserId, long destinationUserId, String eventType, String eventText, long folderId, String imageTitle){
 		String requestURL = getBaseURL() + "/add-event";
 		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
 		requestURL = addParamToRequestURL(requestURL, "creator-user-id", creatorUserId);
 		requestURL = addParamToRequestURL(requestURL, "destination-user-id", destinationUserId);
-		requestURL = addParamToRequestURL(requestURL, "garden-image-id", gardenImageId);
 		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
 		requestURL = addParamToRequestURL(requestURL, "event-text", eventText, true);
+		requestURL = addParamToRequestURL(requestURL, "folder-id", folderId);
+		requestURL = addParamToRequestURL(requestURL, "image-title", imageTitle);
 		return run(requestURL, HttpMethod.POST);
 	}
 		
