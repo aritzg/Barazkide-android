@@ -28,36 +28,40 @@ public class EventRESTClient extends LDRESTClient<Event> {
 	}
 		
 	
-	public List<Event> findEventsInFollowedGardensOlderThanDate(long userId, long followingDate, int blockSize){
+	public List<Event> findEventsInFollowedGardensOlderThanDate(long userId, String eventType, long followingDate, int blockSize){
 		String requestURL = getBaseURL() + "/find-events-in-followed-gardens-older-than-date";
 		requestURL = addParamToRequestURL(requestURL, "user-id", userId);
+		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
 		requestURL = addParamToRequestURL(requestURL, "following-date", followingDate);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
 		Log.d(TAG, "requestURL " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
-	public List<Event> findEventsInFollowedGardensNewerThanDate(long userId, long followingDate, int blockSize){
+	public List<Event> findEventsInFollowedGardensNewerThanDate(long userId, String eventType, long followingDate, int blockSize){
 		String requestURL = getBaseURL() + "/find-events-in-followed-gardens-newer-than-date";
 		requestURL = addParamToRequestURL(requestURL, "user-id", userId);
+		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
 		requestURL = addParamToRequestURL(requestURL, "following-date", followingDate);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
 		Log.d(TAG, "requestURL " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
-	public List<Event> findEventsInGardenOlderThanDate(long gardenId, long eventDate, int blockSize){
+	public List<Event> findEventsInGardenOlderThanDate(long gardenId, String eventType, long eventDate, int blockSize){
 		String requestURL = getBaseURL() + "/find-events-in-garden-older-than-date";
 		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
 		requestURL = addParamToRequestURL(requestURL, "event-date", eventDate);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
 		Log.d(TAG, "requestURL " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
 	
-	public List<Event> findEventsInGardenNewerThanDate(long gardenId, long eventDate, int blockSize){
+	public List<Event> findEventsInGardenNewerThanDate(long gardenId, String eventType, long eventDate, int blockSize){
 		String requestURL = getBaseURL() + "/find-events-in-garden-newer-than-date";
 		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "event-type", eventType);
 		requestURL = addParamToRequestURL(requestURL, "event-date", eventDate);
 		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
 		Log.d(TAG, "requestURL " + requestURL);

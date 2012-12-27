@@ -2,6 +2,7 @@ package net.sareweb.android.barazkide.listener.tab;
 
 import net.sareweb.android.barazkide.fragment.EventsFragment_;
 import net.sareweb.android.barazkide.fragment.GardenDetailFragment_;
+import net.sareweb.android.barazkide.fragment.ImagesFragment_;
 import net.sareweb.android.barazkide.model.Garden;
 import android.app.Activity;
 import android.os.Bundle;
@@ -57,6 +58,21 @@ public class GardenDetailTabListener implements TabListener {
 				fragmentTransaction.attach(mFragment);
 			}
 			break;
+			
+		case GARDEN_IMAGES:
+			if (mFragment == null) {
+				Bundle bundle= new Bundle();
+				bundle.putLong("gardenId", garden.getGardenId());
+				mFragment = (ImagesFragment_)Fragment.instantiate(mActivity, ImagesFragment_.class.getName(),bundle);
+				fragmentTransaction.add(android.R.id.content, mFragment);
+			}
+			else{
+				fragmentTransaction.attach(mFragment);
+			}
+			break;
+			
+		case GARDEN_BADGES:
+			break;
 		}
 	}
 
@@ -70,5 +86,7 @@ public class GardenDetailTabListener implements TabListener {
 	
 	public static final int GARDEN_DETAILS=0;
 	public static final int GARDEN_EVENTS=1;
+	public static final int GARDEN_IMAGES=2;
+	public static final int GARDEN_BADGES=3;
 
 }

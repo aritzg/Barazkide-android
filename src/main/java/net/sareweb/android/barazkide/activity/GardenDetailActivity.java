@@ -41,6 +41,16 @@ public class GardenDetailActivity extends SherlockFragmentActivity{
 		gardenEventsTab.setTabListener(new GardenDetailTabListener(garden, GardenDetailTabListener.GARDEN_EVENTS, this));
 		actionBar.addTab(gardenEventsTab);
 		
+		Tab imagesTab = actionBar.newTab();
+		imagesTab.setText("Images");
+		imagesTab.setTabListener(new GardenDetailTabListener(garden, GardenDetailTabListener.GARDEN_IMAGES, this));
+		actionBar.addTab(imagesTab);
+		
+		Tab badgesTab = actionBar.newTab();
+		badgesTab.setText("Badges");
+		badgesTab.setTabListener(new GardenDetailTabListener(garden, GardenDetailTabListener.GARDEN_BADGES, this));
+		actionBar.addTab(badgesTab);
+		
 		//actionBar.setSelectedNavigationItem(0);
 	}
 	

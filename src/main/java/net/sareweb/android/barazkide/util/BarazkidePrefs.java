@@ -8,5 +8,4 @@ public interface BarazkidePrefs {
 	long userId();
 	String user();
 	String pass();
-
 }

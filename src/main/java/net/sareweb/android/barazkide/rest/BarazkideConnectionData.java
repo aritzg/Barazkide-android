@@ -25,12 +25,12 @@ public class BarazkideConnectionData extends ConnectionData {
 
 	@Override
 	public String getServerURL() {
-		return "192.168.0.14";
+		return Constants.SERVICE_URL;
 	}
 
 	@Override
 	public String getPort() {
-		return "9080";
+		return String.valueOf(Constants.SERVICE_PORT);
 	}
 
 	@Override
