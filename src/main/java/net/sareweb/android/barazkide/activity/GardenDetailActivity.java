@@ -21,7 +21,7 @@ public class GardenDetailActivity extends SherlockFragmentActivity{
     GardenDetailFragment gardenDetailFragment;
 	@Extra
 	Garden garden;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

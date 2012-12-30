@@ -37,6 +37,7 @@ public class LogInActivity extends Activity {
 		if(PrefUtils.isUserLogged(prefs)){
 			BarazkideCache.init(prefs);
 			UserCache.init(prefs);
+			finish();
 			GardensActivity_.intent(this).start();
 		}
 	}

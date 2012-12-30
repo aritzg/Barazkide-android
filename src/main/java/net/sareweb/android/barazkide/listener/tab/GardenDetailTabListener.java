@@ -1,5 +1,6 @@
 package net.sareweb.android.barazkide.listener.tab;
 
+import net.sareweb.android.barazkide.fragment.BadgesFragment_;
 import net.sareweb.android.barazkide.fragment.EventsFragment_;
 import net.sareweb.android.barazkide.fragment.GardenDetailFragment_;
 import net.sareweb.android.barazkide.fragment.ImagesFragment_;
@@ -72,7 +73,16 @@ public class GardenDetailTabListener implements TabListener {
 			break;
 			
 		case GARDEN_BADGES:
-			break;
+			if (mFragment == null) {
+				Bundle bundle= new Bundle();
+				bundle.putLong("gardenId", garden.getGardenId());
+				mFragment = (BadgesFragment_)Fragment.instantiate(mActivity, BadgesFragment_.class.getName(),bundle);
+				fragmentTransaction.add(android.R.id.content, mFragment);
+			}
+			else{
+				fragmentTransaction.attach(mFragment);
+			}
+		break;
 		}
 	}
 

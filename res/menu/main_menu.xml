@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/menu_add"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/add"
         android:showAsAction="ifRoom|withText"
         android:title="Add"/>
     <item
-        android:id="@+id/menu_delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:showAsAction="ifRoom|withText"
-        android:title="Delete"/>
-    <item
         android:id="@+id/menu_help"
-        android:icon="@android:drawable/ic_menu_help"
+        android:icon="@drawable/help"
         android:showAsAction="ifRoom|withText"
         android:title="Help"/>
     <item
+        android:id="@+id/menu_about"
+        android:icon="@drawable/about"
+        android:showAsAction="ifRoom|withText"
+        android:title="About"/>
+    <item
         android:id="@+id/menu_log_out"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/log_out"
         android:showAsAction="ifRoom|withText"
         android:title="Log out"/>
 </menu>

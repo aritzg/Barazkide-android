@@ -1,7 +1,5 @@
 package net.sareweb.android.barazkide.model;
 
-import java.util.Date;
-
 import net.sareweb.lifedroid.model.generic.LDObject;
 
 public class Badge extends LDObject{
@@ -10,7 +8,7 @@ public class Badge extends LDObject{
 	private String badgeType;
 	private String badgeTextKey;
 	private String badgeImageUrl;
-	private Date createDate;
+	private long createDate;
 	public long getBadgeId() {
 		return badgeId;
 	}
@@ -35,10 +33,10 @@ public class Badge extends LDObject{
 	public void setBadgeImageUrl(String badgeImageUrl) {
 		this.badgeImageUrl = badgeImageUrl;
 	}
-	public Date getCreateDate() {
+	public long getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(long createDate) {
 		this.createDate = createDate;
 	}
 	
