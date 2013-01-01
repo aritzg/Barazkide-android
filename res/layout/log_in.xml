@@ -10,21 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:src="@drawable/logo" />
-    
-    <EditText
-        android:id="@+id/txUserName"
+
+    <TextView
+        android:id="@+id/txEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="aritzg"
-        android:inputType="text"/>
+        android:gravity="center_horizontal"
+        android:text="mail@gmail.com"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
         android:id="@+id/txPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="test1"
+        android:text=""
         android:inputType="textPassword" />
 
     <Button
