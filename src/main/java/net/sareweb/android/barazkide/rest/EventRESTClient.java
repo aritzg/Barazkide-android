@@ -67,6 +67,24 @@ public class EventRESTClient extends LDRESTClient<Event> {
 		Log.d(TAG, "requestURL " + requestURL);
 		return getList(requestURL, HttpMethod.GET);
 	}
+	
+	public List<Event> findImageTypeEventsInGardenOlderThanDate(long gardenId, long eventDate, int blockSize){
+		String requestURL = getBaseURL() + "/find-image-type-events-in-garden-older-than-date";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "event-date", eventDate);
+		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
+		Log.d(TAG, "requestURL " + requestURL);
+		return getList(requestURL, HttpMethod.GET);
+	}
+	
+	public List<Event> findImageTypeEventsInGardenNewerThanDate(long gardenId, long eventDate, int blockSize){
+		String requestURL = getBaseURL() + "/find-image-type-events-in-garden-newer-than-date";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "event-date", eventDate);
+		requestURL = addParamToRequestURL(requestURL, "block-size", blockSize);
+		Log.d(TAG, "requestURL " + requestURL);
+		return getList(requestURL, HttpMethod.GET);
+	}
 
 	@Override
 	public String getPorltetContext() {

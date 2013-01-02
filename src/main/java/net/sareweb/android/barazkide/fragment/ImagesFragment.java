@@ -70,7 +70,7 @@ public class ImagesFragment extends SherlockFragment implements OnItemClickListe
 	
 	@Background
 	void getGardenEvents(long gardenId){
-		getGardenEventsResult(eventRESTClient.findEventsInGardenOlderThanDate(gardenId, Constants.EVENT_TYPE_IMAGE, System.currentTimeMillis(), 100));
+		getGardenEventsResult(eventRESTClient.findImageTypeEventsInGardenOlderThanDate(gardenId, System.currentTimeMillis(), 100));
 	}
 	
 	@UiThread
