@@ -83,6 +83,11 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	void addSelected() {
 		EditGardenActivity_.intent(this).start();
 	}
+	
+	@OptionsItem(R.id.menu_about)
+	void aboutSelected() {
+		AboutActivity_.intent(this).start();
+	}
 
 	@OptionsItem(R.id.menu_log_out)
 	void logOutSelected() {

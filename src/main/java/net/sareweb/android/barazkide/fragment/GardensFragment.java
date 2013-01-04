@@ -13,6 +13,7 @@ import net.sareweb.android.barazkide.util.ConnectionUtils;
 import net.sareweb.android.barazkide.util.Constants;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -65,6 +66,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Garden garden = (Garden) view.getTag();
+		Log.d(TAG, "Selected garden " + garden.getGardenId());
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailFragment);

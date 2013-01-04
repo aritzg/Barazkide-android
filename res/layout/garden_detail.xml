@@ -46,13 +46,11 @@
                 android:layout_weight="0"
                 android:src="@drawable/camera" />
             
-            <ImageView
-                android:id="@+id/imgMap"
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/map"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_weight="0"
-                android:src="@drawable/map" />
-            
+				class="com.google.android.gms.maps.SupportMapFragment"/>
 
         </LinearLayout>
 
