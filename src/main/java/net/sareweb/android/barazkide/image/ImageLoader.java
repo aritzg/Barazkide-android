@@ -37,21 +37,27 @@ public class ImageLoader {
     }
     
     final int stub_id=R.drawable.camera;
+    public void displayImage(String url, ImageView imageView, int default_image_id){
+    	{
+        	if(url==null || url.equals("")){
+        		imageView.setImageResource(default_image_id);
+        		return;
+        	}
+            imageViews.put(imageView, url);
+            Bitmap bitmap=memoryCache.get(url);
+            if(bitmap!=null)
+                imageView.setImageBitmap(bitmap);
+            else
+            {
+                queuePhoto(url, imageView);
+                imageView.setImageResource(default_image_id);
+            }
+        }
+    }
+    
     public void displayImage(String url, ImageView imageView)
     {
-    	if(url==null || url.equals("")){
-    		imageView.setImageResource(stub_id);
-    		return;
-    	}
-        imageViews.put(imageView, url);
-        Bitmap bitmap=memoryCache.get(url);
-        if(bitmap!=null)
-            imageView.setImageBitmap(bitmap);
-        else
-        {
-            queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
-        }
+    	displayImage(url, imageView, stub_id);
     }
         
     private void queuePhoto(String url, ImageView imageView)

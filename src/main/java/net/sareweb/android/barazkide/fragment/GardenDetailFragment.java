@@ -40,10 +40,18 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.FragmentArg;
+import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -67,8 +75,12 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	TextView txComment;
 	@ViewById
 	ImageView imgGarden;
+	@ViewById
+	ImageView imgMap;
 	@FragmentArg
 	Garden garden;
+	@FragmentById
+	SupportMapFragment mapFragment;
 	Dialog dialog;
 	ImageLoader imgLoader;
 	String imageMessage="";
@@ -102,6 +114,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		showEventsFragment();
 		getMembers();
 		imgLoader.displayImage(ImageUtils.getGardenImageUrl(garden), imgGarden);
+		showHideMap(garden);
 	}
 	
 	@OptionsItem(R.id.add_image)
@@ -266,6 +279,25 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	void addImageWithComment(DLFileEntry dlFileEntry, File file){
 		DLFileEntry dlFile = dlFileEntryRESTClient.addFileEntry(dlFileEntry, file);
 		eventRESTClient.addEvent(garden.getGardenId(), prefs.userId().get(), 0, Constants.EVENT_TYPE_COMMENT, imageMessage, garden.getGardenFolderId(),dlFileEntry.getTitle()); 
+	}
+	
+	private void showHideMap(Garden garden){
+		if(garden.getLat()==0L && garden.getLng()==0L){
+			mapFragment.getFragmentManager().beginTransaction().hide(mapFragment).commit();
+			imgMap.setVisibility(View.VISIBLE);
+		}
+		else{
+			mapFragment.getFragmentManager().beginTransaction().show(mapFragment).commit();
+			
+			GoogleMap map = mapFragment.getMap();
+			LatLng latLng = new LatLng(garden.getLat(), garden.getLng());
+			CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, 8);
+			map.moveCamera(cu);
+			MarkerOptions mo =new MarkerOptions();
+			mo.position(latLng);
+			map.addMarker(mo);
+			imgMap.setVisibility(View.GONE);
+		}
 	}
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;

@@ -8,23 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <RatingBar
-            android:id="@+id/ratingBar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:max="5"
-            android:numStars="5" />
-
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/txComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="40sp"
-            android:text="5.0"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:layout_weight="0"
+            android:text="txComment"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,34 +25,38 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="0" >
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center" >
 
             <ImageView
                 android:id="@+id/imgGarden"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_weight="0"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:src="@drawable/camera" />
-            
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-				android:id="@+id/map"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-				class="com.google.android.gms.maps.SupportMapFragment"/>
 
+            <ImageView
+                android:id="@+id/imgMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/map"
+                android:visibility="gone" />
+
+            <fragment
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:map="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/mapFragment"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                map:uiScrollGestures="false"
+                map:uiZoomControls="false"
+                map:uiZoomGestures="false" />
         </LinearLayout>
-
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="txComment"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <GridView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -75,6 +69,5 @@
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
         android:verticalSpacing="10dp" />
-    
 
 </LinearLayout>

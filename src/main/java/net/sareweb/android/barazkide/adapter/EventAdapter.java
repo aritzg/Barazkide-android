@@ -12,6 +12,8 @@ import net.sareweb.android.barazkide.util.Constants;
 import net.sareweb.android.barazkide.util.ImageUtils;
 import net.sareweb.lifedroid.model.User;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,11 +61,11 @@ public class EventAdapter extends BaseAdapter{
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd hh:mm");
 		Event event = events.get(position);
 		
-		User user = UserCache.getUser(event.getCreatorUserId());
-		
 		TextView txEventDate = (TextView) convertView.findViewById(R.id.txEventDate);
 		Date tmpDate = new Date(event.getCreateDate());
-		txEventDate.setText(user.getScreenName() + " @ " + sdf.format(tmpDate));
+		
+		//new DrawUser().execute(String.valueOf(event.getDestinationUserId()));
+		//txEventDate.setText(user.getScreenName() + " @ " + sdf.format(tmpDate));
 		
 		if(event.getEventType().equals(Constants.EVENT_TYPE_COMMENT)){
 			drawCommentEvent(convertView, event);
@@ -80,18 +82,26 @@ public class EventAdapter extends BaseAdapter{
 	public void drawCommentEvent(View convertView, Event event){
 		TextView txEventText = (TextView) convertView.findViewById(R.id.txEventText);
 		txEventText.setText(event.getEventText());
-		if(event.getImageTitle()!=null && !event.getImageTitle().equals("")){
-			ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
-			imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent);
-		}
+		ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
+		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent, R.drawable.ic_launcher);
 	}
 	
 	public void drawImageEvent(View convertView, Event event){
 		TextView txEventText = (TextView) convertView.findViewById(R.id.txEventText);
 		txEventText.setText("XXX changed garden image");
-		
 		ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
-		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent);
+		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent, R.drawable.ic_launcher);
+	}
+	
+	private class DrawUser extends AsyncTask<String , Void, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			User user = UserCache.getUser(Long.parseLong(params[0]));
+			Log.d(TAG, user.getScreenName());
+			return null;
+		}
+		
 	}
 	
 }

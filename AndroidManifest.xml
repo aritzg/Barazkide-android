@@ -34,15 +34,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".activity.AboutActivity_"/>
         <activity android:name=".activity.GardensActivity_"/>
         <activity android:name=".activity.AddCommentActivity_"/>
         <activity android:name=".activity.GardenDetailActivity_"/>
         <activity android:name=".activity.EditGardenActivity_"/>
-		
+		<activity android:name=".activity.LocationSelectorActivity"/>		
 		<meta-data
 			android:name="com.google.android.maps.v2.API_KEY"
-			android:value="AIzaSyAYgWiRUFCXfZPnKCW2vEf9Iz6jCLzxFwI"/>
+			android:value="AIzaSyCeLRNEREF99mMn2pL2OgN7kUH3gZZ1ZHo"/>
     </application>
 
 </manifest>
