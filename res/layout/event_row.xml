@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
     <ImageView
@@ -16,14 +16,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/txEventDate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:layout_weight="0"
-            android:text="11/11/11 11:11"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal" >
+
+            <net.sareweb.android.barazkide.custom.UserPortrait_
+                android:id="@+id/userPortrait"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+            <TextView
+                android:id="@+id/txEventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:text="11/11/11 11:11"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txEventText"
@@ -32,7 +44,6 @@
             android:layout_weight="0"
             android:text="txEventText"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </LinearLayout>
 
 </LinearLayout>

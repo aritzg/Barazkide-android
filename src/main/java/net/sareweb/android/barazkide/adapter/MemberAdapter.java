@@ -5,6 +5,7 @@ import java.util.List;
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.image.ImageLoader;
 import net.sareweb.android.barazkide.model.Garden;
+import net.sareweb.android.barazkide.util.Constants;
 import net.sareweb.lifedroid.model.User;
 
 import android.content.Context;
@@ -59,7 +60,7 @@ public class MemberAdapter extends BaseAdapter{
 		txMemberName.setText(name);
 		
 		ImageView imgMember = (ImageView) convertView.findViewById(R.id.imgMember);
-		imgLoader.displayImage("http://192.168.0.14:9080/image/user_male_portrait?img_id="+member.getPortraitId(), imgMember);
+		imgLoader.displayImage("http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/image/user_male_portrait?img_id="+member.getPortraitId(), imgMember);
 		
 		convertView.setTag(members.get(position));
 		

@@ -6,6 +6,8 @@ import java.util.List;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.cache.UserCache;
+import net.sareweb.android.barazkide.custom.UserPortrait;
+import net.sareweb.android.barazkide.custom.UserPortrait_;
 import net.sareweb.android.barazkide.image.ImageLoader;
 import net.sareweb.android.barazkide.model.Event;
 import net.sareweb.android.barazkide.util.Constants;
@@ -63,9 +65,10 @@ public class EventAdapter extends BaseAdapter{
 		
 		TextView txEventDate = (TextView) convertView.findViewById(R.id.txEventDate);
 		Date tmpDate = new Date(event.getCreateDate());
-		
-		//new DrawUser().execute(String.valueOf(event.getDestinationUserId()));
-		//txEventDate.setText(user.getScreenName() + " @ " + sdf.format(tmpDate));
+		txEventDate.setText(" @ " + sdf.format(tmpDate));
+
+		UserPortrait_ userPortraiet = (UserPortrait_) convertView.findViewById(R.id.userPortrait);
+		userPortraiet.updateForUser(event.getCreatorUserId());
 		
 		if(event.getEventType().equals(Constants.EVENT_TYPE_COMMENT)){
 			drawCommentEvent(convertView, event);
@@ -91,17 +94,6 @@ public class EventAdapter extends BaseAdapter{
 		txEventText.setText("XXX changed garden image");
 		ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
 		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent, R.drawable.ic_launcher);
-	}
-	
-	private class DrawUser extends AsyncTask<String , Void, String>{
-
-		@Override
-		protected String doInBackground(String... params) {
-			User user = UserCache.getUser(Long.parseLong(params[0]));
-			Log.d(TAG, user.getScreenName());
-			return null;
-		}
-		
 	}
 	
 }
