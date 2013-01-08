@@ -1,14 +1,11 @@
 package net.sareweb.android.barazkide.activity;
 
-import net.sareweb.android.barazkide.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 

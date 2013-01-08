@@ -5,7 +5,6 @@ import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
-import net.sareweb.android.barazkide.util.ConnectionUtils;
 import net.sareweb.android.barazkide.util.Constants;
 import net.sareweb.lifedroid.model.DLFolder;
 import net.sareweb.lifedroid.rest.DLFolderRESTClient;
@@ -13,7 +12,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -48,7 +46,6 @@ public class EditGardenActivity extends SherlockFragmentActivity{
 	
 	@OptionsItem(R.id.menu_save)
 	void saveSelected() {
-		Log.d(TAG, "Saving garden");
 		dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
         dialog.setMessage("Saving garden");
