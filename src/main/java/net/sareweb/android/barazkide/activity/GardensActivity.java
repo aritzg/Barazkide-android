@@ -78,10 +78,6 @@ public class GardensActivity extends SherlockFragmentActivity implements
 		fragmentTransaction.commitAllowingStateLoss();
 	}
 
-	@OptionsItem(R.id.menu_add)
-	void addSelected() {
-		EditGardenActivity_.intent(this).start();
-	}
 	
 	@OptionsItem(R.id.menu_home)
 	void homeSelected() {

@@ -6,7 +6,6 @@ import java.util.List;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.activity.AddCommentActivity_;
-import net.sareweb.android.barazkide.activity.LocationSelectorActivity;
 import net.sareweb.android.barazkide.activity.LocationSelectorActivity_;
 import net.sareweb.android.barazkide.adapter.MemberAdapter;
 import net.sareweb.android.barazkide.cache.BarazkideCache;
