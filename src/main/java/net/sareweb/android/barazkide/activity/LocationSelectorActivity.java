@@ -8,7 +8,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.googlecode.androidannotations.annotations.EActivity;
 
+@EActivity
 public class LocationSelectorActivity extends SherlockFragmentActivity {
 
 	private static final String TAG = "LocationSelectorActivity";

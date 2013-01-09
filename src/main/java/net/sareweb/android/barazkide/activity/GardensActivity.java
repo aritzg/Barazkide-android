@@ -76,12 +76,17 @@ public class GardensActivity extends SherlockFragmentActivity implements
 				.beginTransaction();
 		gardensFragment.setGardenContent(gardenListType);
 		fragmentTransaction.commitAllowingStateLoss();
-
 	}
 
 	@OptionsItem(R.id.menu_add)
 	void addSelected() {
 		EditGardenActivity_.intent(this).start();
+	}
+	
+	@OptionsItem(R.id.menu_home)
+	void homeSelected() {
+		finish();
+		DashboardActivity_.intent(this).start();
 	}
 	
 	@OptionsItem(R.id.menu_about)

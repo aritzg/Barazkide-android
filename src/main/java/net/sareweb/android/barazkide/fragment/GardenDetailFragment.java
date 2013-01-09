@@ -6,6 +6,8 @@ import java.util.List;
 
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.activity.AddCommentActivity_;
+import net.sareweb.android.barazkide.activity.LocationSelectorActivity;
+import net.sareweb.android.barazkide.activity.LocationSelectorActivity_;
 import net.sareweb.android.barazkide.adapter.MemberAdapter;
 import net.sareweb.android.barazkide.cache.BarazkideCache;
 import net.sareweb.android.barazkide.image.ImageLoader;
@@ -94,7 +96,6 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		imgLoader = new ImageLoader(getActivity());
 		
 	}
-	
 
 	@Override
 	public void onResume() {
@@ -118,11 +119,15 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		showAddImageDialog(true);
 	}
 	
+	@Click({R.id.imgMap, R.id.mapFragment})
+	void clickMap(){
+		openLocationSelector();
+	}
+	
 	@Click(R.id.imgGarden)
 	void clickImage(){
 		 showAddImageDialog(false);
 	}
-	
 	
 	private void showAddImageDialog(boolean withMessage){
 		dialog = new Dialog(getActivity());
@@ -294,6 +299,10 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 			map.addMarker(mo);
 			imgMap.setVisibility(View.GONE);
 		}
+	}
+	
+	private void openLocationSelector(){
+		LocationSelectorActivity_.intent(getSherlockActivity()).start();
 	}
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;

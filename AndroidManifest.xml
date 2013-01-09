@@ -41,7 +41,7 @@
         <activity android:name=".activity.AddCommentActivity_"/>
         <activity android:name=".activity.GardenDetailActivity_"/>
         <activity android:name=".activity.EditGardenActivity_"/>
-		<activity android:name=".activity.LocationSelectorActivity"/>		
+		<activity android:name=".activity.LocationSelectorActivity_"/>		
 		<meta-data
 			android:name="com.google.android.maps.v2.API_KEY"
 			android:value="AIzaSyAYgWiRUFCXfZPnKCW2vEf9Iz6jCLzxFwI"/>
