@@ -3,6 +3,7 @@ package net.sareweb.android.barazkide.activity;
 import net.sareweb.android.barazkide.R;
 import net.sareweb.android.barazkide.fragment.GardenDetailFragment;
 import net.sareweb.android.barazkide.fragment.GardensFragment;
+import net.sareweb.android.barazkide.model.Garden;
 import net.sareweb.android.barazkide.rest.BarazkideConnectionData;
 import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
@@ -18,6 +19,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentById;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
@@ -31,6 +33,7 @@ public class GardensActivity extends SherlockFragmentActivity implements
 
 	private static String TAG = "GardensActivity";
 
+	@Extra boolean showHomeBack=false;
 	GardenRESTClient gardenRESTClient;
 	@FragmentById
 	GardensFragment gardensFragment;
@@ -51,6 +54,7 @@ public class GardensActivity extends SherlockFragmentActivity implements
 
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionBar.setDisplayHomeAsUpEnabled(showHomeBack);
 
 	}
 
@@ -79,10 +83,12 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	}
 
 	
-	@OptionsItem(R.id.menu_home)
+	@OptionsItem({R.id.menu_home,android.R.id.home})
 	void homeSelected() {
 		finish();
-		DashboardActivity_.intent(this).start();
+		if(!showHomeBack){
+			DashboardActivity_.intent(this).start();
+		}
 	}
 	
 	@OptionsItem(R.id.menu_about)
@@ -96,4 +102,5 @@ public class GardensActivity extends SherlockFragmentActivity implements
 		finish();
 		LogInActivity_.intent(this).start();
 	}
+	
 }

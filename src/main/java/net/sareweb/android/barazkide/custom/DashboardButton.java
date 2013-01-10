@@ -2,7 +2,9 @@ package net.sareweb.android.barazkide.custom;
 
 import net.sareweb.android.barazkide.R;
 import android.content.Context;
-import android.graphics.Canvas;
+import android.content.res.TypedArray;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,26 +18,27 @@ import com.googlecode.androidannotations.annotations.ViewById;
 public class DashboardButton extends RelativeLayout {
 
 	private String TAG ="DasboardButton";
+	private Context context;
 	@ViewById
 	ImageView imgButton;
 	@ViewById
 	TextView txButtonText;
-	int imgResId;
-	String text="";
+	Drawable image;
+	String buttonText="";
 	
 	public DashboardButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		imgResId  = attrs.getAttributeIntValue("net.sareweb.android.barazkide", "imgResId", R.drawable.logo);
-		text = attrs.getAttributeValue("net.sareweb.android.barazkide", "imgResId");
+		this.context=context;
+		TypedArray attrsArray = context.obtainStyledAttributes(attrs,
+                R.styleable.DashboardButton);
+		image  = attrsArray.getDrawable(R.styleable.DashboardButton_imgResId); 
+		buttonText = attrsArray.getString(R.styleable.DashboardButton_buttonText);
 	}
 	
-
 	@Override
-	protected void onDraw(Canvas canvas) {
-		Log.d(TAG, "aaaaaaa " + text);
-		imgButton.setImageResource(imgResId);
-		txButtonText.setText(text);
-		super.onDraw(canvas);
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		txButtonText.setText(buttonText);
+		imgButton.setImageDrawable(image);
 	}
-	
 }
