@@ -26,16 +26,19 @@
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnAddGarden"
+                android:layout_weight="1"
                 brzk:buttonText="Add garden"
                 brzk:imgResId="@drawable/add_garden" />
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnList"
+                android:layout_weight="1"
                 brzk:buttonText="Garden list"
                 brzk:imgResId="@drawable/list" />
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnMap"
+                android:layout_weight="1"
                 brzk:buttonText="Garden map"
                 brzk:imgResId="@drawable/gardens_map" />
         </TableRow>
@@ -48,19 +51,23 @@
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnEventMap"
-                brzk:imgResId="@drawable/event_map"
-                brzk:buttonText="Event map"/>
+                android:layout_weight="1"
+                brzk:buttonText="Event map"
+                brzk:imgResId="@drawable/event_map" />
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnSettings"
-                brzk:imgResId="@drawable/settings"
-                brzk:buttonText="Settings"/>
+                android:layout_weight="1"
+                brzk:buttonText="Settings"
+                brzk:imgResId="@drawable/settings" />
 
             <net.sareweb.android.barazkide.custom.DashboardButton_
                 android:id="@+id/btnAbout"
-                brzk:imgResId="@drawable/logo"
-                brzk:buttonText="About"/>
+                android:layout_weight="1"
+                brzk:buttonText="About"
+                brzk:imgResId="@drawable/logo" />
         </TableRow>
+
     </TableLayout>
 
 </LinearLayout>
