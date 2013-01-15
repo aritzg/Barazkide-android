@@ -3,6 +3,7 @@ package net.sareweb.android.barazkide.adapter;
 import java.util.List;
 
 import net.sareweb.android.barazkide.R;
+import net.sareweb.android.barazkide.custom.FollowUnfollowButton_;
 import net.sareweb.android.barazkide.model.Garden;
 
 import android.content.Context;
@@ -46,10 +47,15 @@ public class GardenAdapter extends BaseAdapter{
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.garden_row, null);
 		}
-		TextView txGardenName = (TextView) convertView.findViewById(R.id.txGardenName);
+		Garden garden = gardens.get(position);
 		
-		String name=gardens.get(position).getName();
+		TextView txGardenName = (TextView) convertView.findViewById(R.id.txGardenName);
+		String name=garden.getName();
 		txGardenName.setText(name);
+		
+		FollowUnfollowButton_ star = (FollowUnfollowButton_) convertView.findViewById(R.id.btnFollowUnfollow);
+		star.setGardenId(garden.getGardenId());
+		
 		convertView.setTag(gardens.get(position));
 		return convertView;
 	}

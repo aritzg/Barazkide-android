@@ -48,7 +48,6 @@ public class UserPortrait extends RelativeLayout {
 		if(user!=null){
 			txMemberName.setText(user.getScreenName());
 			imgLoader.displayImage("http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/image/user_male_portrait?img_id="+user.getPortraitId(), imgMember);
-			Log.d(TAG, "aaaaa http://" + Constants.SERVICE_URL + ":" + Constants.SERVICE_PORT + "/image/user_male_portrait?img_id="+user.getPortraitId());
 		}
 		else{
 			imgLoader.displayImage(null, imgMember);

@@ -1,5 +1,6 @@
 package net.sareweb.android.barazkide.cache;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class BarazkideCache {
 	private static UserRESTClient userRESTClient;
 
 	private static Map<Long, Garden> gardens_member;
-	private static Map<Long, Garden> gardens_followed;
+	private static List<Long> gardens_followed;
 	private static Map<Long, User> users = new HashMap<Long, User>();
 	
 	public static void init(BarazkidePrefs_ preferences){
@@ -40,11 +41,11 @@ public class BarazkideCache {
 	}
 	
 	private static void loadGardenFollwed() {
-		gardens_followed = new HashMap<Long, Garden>();
+		gardens_followed = new ArrayList<Long>();
 		List<Garden>gardens = gardenRESTClient.getFollowedGardensOlderThanDate(prefs.userId().get(), System.currentTimeMillis(), 100);
 		if(gardens!=null){
 			for(Garden garden : gardens){
-				gardens_followed.put(garden.getGardenId(), garden);
+				gardens_followed.add(garden.getGardenId());
 			}
 		}
 	}
@@ -56,8 +57,14 @@ public class BarazkideCache {
 	}
 	
 	public static void followGarden(Garden garden){
-		if(!gardens_followed.containsKey(garden.getGardenId())){
-			gardens_followed.put(garden.getGardenId(), garden);
+		if(garden!=null){
+			followGarden(garden.getGardenId());
+		}
+	}
+	
+	public static void followGarden(long gardenId){
+		if(!gardens_followed.contains(gardenId)){
+			gardens_followed.add(gardenId);
 		}
 	}
 	
@@ -68,13 +75,19 @@ public class BarazkideCache {
 	}
 
 	public static void unfollowGarden(Garden garden){
-		if(gardens_followed.containsKey(garden.getGardenId())){
-			gardens_followed.remove(garden.getGardenId());
+		if(garden!=null){
+			unfollowGarden(garden.getGardenId());
+		}
+	}
+	
+	public static void unfollowGarden(long gardenId){
+		if(gardens_followed.contains(gardenId)){
+			gardens_followed.remove(gardenId);
 		}
 	}
 	
 	public static boolean iAmFollowingGarden(long gardenId){
-		return gardens_followed.containsKey(gardenId);
+		return gardens_followed.contains(gardenId);
 	}
 	
 	public static boolean iAmMemberOfGarden(long gardenId){
