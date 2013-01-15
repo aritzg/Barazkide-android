@@ -70,6 +70,8 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		loadGardens(itemPosition);
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		fragmentManager.beginTransaction().hide(gardenDetailFragment).commit();
 		return false;
 	}
 

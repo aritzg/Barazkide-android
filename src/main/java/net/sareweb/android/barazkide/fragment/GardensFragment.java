@@ -11,6 +11,7 @@ import net.sareweb.android.barazkide.rest.GardenRESTClient;
 import net.sareweb.android.barazkide.util.BarazkidePrefs_;
 import net.sareweb.android.barazkide.util.ConnectionUtils;
 import net.sareweb.android.barazkide.util.Constants;
+import android.app.ProgressDialog;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -34,9 +35,12 @@ import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 public class GardensFragment extends SherlockFragment implements OnItemClickListener{
 	
 	private static String TAG = "GardensFragment";
-	@Pref BarazkidePrefs_ prefs; 
+	@Pref BarazkidePrefs_ prefs;
+	private ProgressDialog dialog;
 	
 	public void setGardenContent(int gardenListType){
+		dialog = ProgressDialog.show(getSherlockActivity(), "", "Loading gardens...", true);
+		dialog.show();
 		getGardens(prefs.userId().get(), gardenListType);
 	}
 	
@@ -61,6 +65,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 		ListView gardensListView = (ListView) getActivity().findViewById(R.id.garden_list_view);
 		gardensListView.setAdapter(new GardenAdapter(getActivity(), gardens));
 		gardensListView.setOnItemClickListener(this);
+		dialog.cancel();
 	}
 
 	@Override
@@ -72,6 +77,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 		GardenDetailFragment gardenDetailFragment = (GardenDetailFragment)fragmentManager.findFragmentById(R.id.gardenDetailFragment);
 		if(gardenDetailFragment!=null){
 			gardenDetailFragment.setGardenContent(garden);
+			fragmentTransaction.show(gardenDetailFragment);
 			fragmentTransaction.commitAllowingStateLoss();
 		}
 		else{
