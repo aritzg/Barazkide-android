@@ -82,7 +82,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	ImageLoader imgLoader;
 	String imageMessage="";
 	
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -187,6 +187,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 
 	@Override
 	public void onClick(View v) {
+		Log.d(TAG, "Click");
 		Intent intent;
 		TextView txImageMessage =(TextView)dialog.findViewById(R.id.txImageMessage);
 		imageMessage=txImageMessage.getText().toString();
@@ -204,6 +205,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 			startActivityForResult(intent,
 					reqCode);
+			dialog.cancel();
 			break;
 
 		case R.id.imgCamera:
@@ -217,9 +219,15 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 			Uri fileUri = Uri.fromFile(new File(""));
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(intent, reqCode);
+			dialog.cancel();
+			break;
+		
+		case R.id.mapFragment:
+			Log.d(TAG, "Click on map");
+			openLocationSelector();
 			break;
 		}
-		dialog.cancel();
+		
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -301,7 +309,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	}
 	
 	private void openLocationSelector(){
-		LocationSelectorActivity_.intent(getSherlockActivity()).start();
+		LocationSelectorActivity_.intent(getSherlockActivity()).garden(garden).start();
 	}
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;
