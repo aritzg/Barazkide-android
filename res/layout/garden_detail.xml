@@ -33,7 +33,7 @@
                 android:id="@+id/imgMap"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/map"
+                android:src="@drawable/bg_map"
                 android:visibility="visible" />
 
             <fragment
