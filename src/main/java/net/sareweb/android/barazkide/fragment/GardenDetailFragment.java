@@ -264,7 +264,9 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 				}
 			}
 			break;
-
+		case REQUEST_CODE_FOR_LOCATION:
+			Log.d(TAG, "got lat");
+			break;
 		default:
 			break;
 		}
@@ -309,13 +311,15 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	}
 	
 	private void openLocationSelector(){
-		LocationSelectorActivity_.intent(getSherlockActivity()).garden(garden).start();
+		LocationSelectorActivity_.intent(getSherlockActivity()).garden(garden).startForResult(REQUEST_CODE_FOR_LOCATION);
 	}
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 101;
+	
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 200;
 	final int GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_COMMENT = 201;
 	
+	final int REQUEST_CODE_FOR_LOCATION = 300;
 
 }

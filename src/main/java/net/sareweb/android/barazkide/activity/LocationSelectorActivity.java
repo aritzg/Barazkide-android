@@ -61,6 +61,7 @@ public class LocationSelectorActivity extends SherlockFragmentActivity implement
 	@OptionsItem
 	void homeSelected() {
 		Toast.makeText(this, ""+garden.getLat(), Toast.LENGTH_LONG).show();
+		finish();
 	}
 	
 	@Override
