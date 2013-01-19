@@ -13,6 +13,9 @@ public class Event extends LDObject{
 	private long createDate;
 	private String eventType;
 	private String eventText;
+	private double lat;
+	private double lng;
+	
 	public long getEventId() {
 		return eventId;
 	}
@@ -67,6 +70,17 @@ public class Event extends LDObject{
 	public void setEventText(String eventText) {
 		this.eventText = eventText;
 	}
-	
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
 	
 }

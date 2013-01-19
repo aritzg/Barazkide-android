@@ -33,6 +33,15 @@ public class GardenRESTClient extends LDRESTClient<Garden> {
 		return run(requestURL, HttpMethod.POST);
 	}
 	
+	public Garden updateGardenLocation(long gardenId, double lat, double lng){
+		String requestURL = getBaseURL() + "/update-garden-location";
+		requestURL = addParamToRequestURL(requestURL, "garden-id", gardenId);
+		requestURL = addParamToRequestURL(requestURL, "lat", lat);
+		requestURL = addParamToRequestURL(requestURL, "lng", lng);
+		Log.d(TAG, "requestURL " + requestURL);
+		return run(requestURL, HttpMethod.POST);
+	}
+	
 	public List<Garden> getGardens(){
 		String requestURL = getBaseURL() + "/get-gardens";
 		Log.d(TAG, "requestURL " + requestURL);

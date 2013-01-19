@@ -269,6 +269,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		case REQUEST_CODE_FOR_LOCATION:
 			garden.setLat(data.getDoubleExtra("lat", 0));
 			garden.setLng(data.getDoubleExtra("lng", 0));
+			updateGardenLocation();
 			setGardenContent(garden);
 			break;
 		default:
@@ -287,6 +288,11 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	@UiThread
 	void updateGardenImageResult(DLFileEntry dlFileEntry){
 		imgLoader.displayImage(ImageUtils.getGardenImageUrl(garden), imgGarden);
+	}
+	
+	@Background
+	void updateGardenLocation(){
+		gardenRESTClient.updateGardenLocation(garden.getGardenId(), garden.getLat(), garden.getLng());
 	}
 	
 	@Background

@@ -46,6 +46,7 @@ public class GardensFragment extends SherlockFragment implements OnItemClickList
 	
 	@Background
 	public void getGardens(long userId, int gardenListType){
+		Log.d(TAG, "Gettings gardens");
 		GardenRESTClient gardenRestClient = new GardenRESTClient(new BarazkideConnectionData(prefs));
 		switch (gardenListType) {
 		case Constants.GARDEN_LIST_ALL:

@@ -91,6 +91,10 @@ public class LocationSelectorActivity extends SherlockFragmentActivity implement
 		if(garden!=null && garden.getLat()!=0 && garden.getLng()!=0){
 			defaultLatLng = new LatLng(garden.getLat(), garden.getLng());
 		}
+		else if(garden!=null){
+			garden.setLat(defaultLatLng.latitude);
+			garden.setLng(defaultLatLng.longitude);
+		}
 	}
 	
 	private void setMarker(){

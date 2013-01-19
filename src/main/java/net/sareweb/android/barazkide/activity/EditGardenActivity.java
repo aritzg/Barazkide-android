@@ -62,7 +62,7 @@ public class EditGardenActivity extends SherlockFragmentActivity{
 	void saveGarden(){
 		Garden garden = gardenRESTClient.addGarden(txName.getText().toString(), txComment.getText().toString(), 0.0, 0.0, 0);
 		DLFolder folder = new DLFolder();
-		folder.setDescription(garden.getName());
+		folder.setDescription(prefs.userId().get() + "_" + garden.getName());
 		folder.setGroupId(Constants.GROUP);
 		folder.setName(String.valueOf(garden.getGardenId()));
 		folder.setParentFolderId(0l);
