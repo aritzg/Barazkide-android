@@ -1,6 +1,7 @@
 package net.sareweb.android.barazkide.activity;
 
 import net.sareweb.android.barazkide.model.Garden;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.LinearLayout;
@@ -60,8 +61,11 @@ public class LocationSelectorActivity extends SherlockFragmentActivity implement
 	
 	@OptionsItem
 	void homeSelected() {
-		Toast.makeText(this, ""+garden.getLat(), Toast.LENGTH_LONG).show();
-		finish();
+		Intent intent=new Intent();
+		intent.putExtra("lat", garden.getLat());
+		intent.putExtra("lng", garden.getLng());
+	    setResult(RESULT_OK, intent);
+	    finish();
 	}
 	
 	@Override

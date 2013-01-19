@@ -103,8 +103,8 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	}
 
 	public void setGardenContent(Garden garden){
+		Log.d(TAG, "setGardenContent");
 		this.garden=garden;
-		
 		txComment = (TextView)(getSherlockActivity().findViewById(R.id.txComment));
 		txComment.setText(garden.getComment());
 		showEventsFragment();
@@ -230,7 +230,9 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		
 	}
 	
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d(TAG,"onActivityResult");
 		switch (requestCode) {
 		case GET_IMG_FROM_GALLERY_ACTIVITY_REQUEST_CODE_FOR_GARDEN:
 			if (resultCode == getActivity().RESULT_OK) {
@@ -265,7 +267,9 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 			}
 			break;
 		case REQUEST_CODE_FOR_LOCATION:
-			Log.d(TAG, "got lat");
+			garden.setLat(data.getDoubleExtra("lat", 0));
+			garden.setLng(data.getDoubleExtra("lng", 0));
+			setGardenContent(garden);
 			break;
 		default:
 			break;
@@ -300,6 +304,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 			mapFragment.getFragmentManager().beginTransaction().show(mapFragment).commit();
 			
 			GoogleMap map = mapFragment.getMap();
+			map.clear();
 			LatLng latLng = new LatLng(garden.getLat(), garden.getLng());
 			CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, 8);
 			map.moveCamera(cu);
@@ -311,7 +316,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 	}
 	
 	private void openLocationSelector(){
-		LocationSelectorActivity_.intent(getSherlockActivity()).garden(garden).startForResult(REQUEST_CODE_FOR_LOCATION);
+		startActivityForResult(LocationSelectorActivity_.intent(getSherlockActivity()).garden(garden).get(), REQUEST_CODE_FOR_LOCATION);
 	}
 	
 	final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE_FOR_GARDEN = 100;

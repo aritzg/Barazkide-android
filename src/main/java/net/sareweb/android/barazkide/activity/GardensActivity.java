@@ -44,6 +44,7 @@ public class GardensActivity extends SherlockFragmentActivity implements
 	@Pref
 	BarazkidePrefs_ prefs;
 	ActionBar actionBar;
+	private int dropDownMenuItem=-1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,12 @@ public class GardensActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		loadGardens(itemPosition);
-		if(gardenDetailFragment!=null){
+		boolean dropDownChanged=dropDownMenuItem!=itemPosition;
+		if(dropDownChanged){
+			dropDownMenuItem=itemPosition;
+		}
+		if(gardenDetailFragment!=null && dropDownChanged){
+			loadGardens(itemPosition);
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			fragmentManager.beginTransaction().hide(gardenDetailFragment).commit();
 		}
