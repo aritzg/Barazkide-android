@@ -76,6 +76,9 @@ public class EventAdapter extends BaseAdapter{
 		else if(event.getEventType().equals(Constants.EVENT_TYPE_IMAGE)){
 			drawImageEvent(convertView, event);
 		}
+		else if(event.getEventType().equals(Constants.EVENT_TYPE_LOCATION)){
+			drawLocationEvent(convertView, event);
+		}
 		
 		convertView.setTag(events.get(position));
 		return convertView;
@@ -94,6 +97,13 @@ public class EventAdapter extends BaseAdapter{
 		txEventText.setText("XXX changed garden image");
 		ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
 		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent, R.drawable.ic_launcher);
+	}
+	
+	public void drawLocationEvent(View convertView, Event event){
+		TextView txEventText = (TextView) convertView.findViewById(R.id.txEventText);
+		txEventText.setText("Updated garden location!!");
+		ImageView imgEvent = (ImageView) convertView.findViewById(R.id.imgEvent);
+		imgLoader.displayImage(ImageUtils.getEventImageUrl(event), imgEvent, R.drawable.gardens_map);
 	}
 	
 }
