@@ -118,7 +118,7 @@ public class GardenDetailFragment extends SherlockFragment implements  OnClickLi
 		showAddImageDialog(true);
 	}
 	
-	@Click({R.id.imgMap, R.id.mapFragment})
+	@Click({R.id.mapCover})
 	void clickMap(){
 		openLocationSelector();
 	}

@@ -45,11 +45,15 @@
                 class="com.google.android.gms.maps.SupportMapFragment"
                 map:uiScrollGestures="false"
                 map:uiZoomControls="false"
-                map:uiZoomGestures="false" 
+                map:uiZoomGestures="false"
                 android:visibility="gone" />
         </LinearLayout>
         
-        
+        <ImageView
+            android:id="@+id/mapCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/transparent" />
         
         <ImageView
             android:id="@+id/imgGarden"
@@ -58,6 +62,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:src="@drawable/camera" />
+        
+        
 
         
     </RelativeLayout>
